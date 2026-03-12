@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "lecture_notes/Course 1 - Supervised Machine Learning/C1-W1 - Introduction to Machine Learning.md",
+                "file": "lecture_notes/Course 2 - Advanced Learning Algorithms/C2-W4 - Decision Trees.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "C1-W1 - Introduction to Machine Learning"
+              "title": "C2-W4 - Decision Trees"
             }
           }
         ]
@@ -185,35 +185,35 @@
   },
   "active": "164a84a0aef50cb1",
   "lastOpenFiles": [
+    "lecture_notes/Course 2 - Advanced Learning Algorithms/Course 2 - Index.md",
+    "lecture_notes/Knowledge Points/KP-06 - Attention 機制與 Transformer.md",
+    "lecture_notes/Course 1 - Supervised Machine Learning/C1-W1 - Introduction to Machine Learning.md",
+    "lecture_notes/Knowledge Points/KP-01 - 超參數與學習率.md",
+    "lecture_notes/Course 2 - Advanced Learning Algorithms/C2-W1 - Neural Networks.md",
+    "lecture_notes/Course 3 - Unsupervised Learning, Recommenders, Reinforcement Learning/C3-W1 - Clustering & Anomaly Detection.md",
+    "lecture_notes/Knowledge Points/KP-02 - 現代優化器.md",
     "lecture_notes/Knowledge Points/KP-Index - 知識點總索引.md",
     "lecture_notes/Knowledge Points/KP-11 - 表格資料與現代決策樹.md",
     "lecture_notes/Knowledge Points/KP-10 - 現代推薦系統.md",
     "lecture_notes/Knowledge Points/KP-09 - RLHF 與現代強化學習.md",
     "lecture_notes/Knowledge Points/KP-08 - 自監督與對比學習.md",
     "lecture_notes/Knowledge Points/KP-07 - 縮放法則與湧現能力.md",
-    "lecture_notes/Knowledge Points/KP-06 - Attention 機制與 Transformer.md",
     "lecture_notes/Knowledge Points/KP-05 - 激活函數.md",
     "lecture_notes/Knowledge Points/KP-04 - 正則化技術.md",
     "lecture_notes/Knowledge Points/KP-03 - 損失函數.md",
-    "lecture_notes/Knowledge Points/KP-02 - 現代優化器.md",
-    "lecture_notes/Knowledge Points/KP-01 - 超參數與學習率.md",
     "lecture_notes/Knowledge Points",
     "terminology",
     "lecture_notes/terminology",
     "lecture_notes/ML Specialization - Master Index.md",
     "lecture_notes/Course 3 - Unsupervised Learning, Recommenders, Reinforcement Learning/Course 3 - Index.md",
-    "lecture_notes/Course 2 - Advanced Learning Algorithms/Course 2 - Index.md",
     "lecture_notes/Course 1 - Supervised Machine Learning/Course 1 - Index.md",
     "lecture_notes/Course 3 - Unsupervised Learning, Recommenders, Reinforcement Learning/C3-W3 - Reinforcement Learning.md",
     "lecture_notes/Course 3 - Unsupervised Learning, Recommenders, Reinforcement Learning/C3-W2 - Recommender Systems & PCA.md",
     "lecture_notes/Course 1 - Supervised Machine Learning/C1-W2 - Regression with Multiple Input Variables.md",
-    "lecture_notes/Course 1 - Supervised Machine Learning/C1-W1 - Introduction to Machine Learning.md",
     "2026-03-12.md",
-    "lecture_notes/Course 3 - Unsupervised Learning, Recommenders, Reinforcement Learning/C3-W1 - Clustering & Anomaly Detection.md",
     "lecture_notes/Course 2 - Advanced Learning Algorithms/C2-W4 - Decision Trees.md",
     "lecture_notes/Course 2 - Advanced Learning Algorithms/C2-W3 - Advice for Applying ML.md",
     "lecture_notes/Course 2 - Advanced Learning Algorithms/C2-W2 - Neural Network Training.md",
-    "lecture_notes/Course 2 - Advanced Learning Algorithms/C2-W1 - Neural Networks.md",
     "lecture_notes/Course 3 - Unsupervised Learning, Recommenders, Reinforcement Learning",
     "lecture_notes/Course 2 - Advanced Learning Algorithms",
     "lecture_notes/Course 1 - Supervised Machine Learning",
