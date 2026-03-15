@@ -136,6 +136,14 @@ $$g(z) = \max(0, z)$$
 - 適用於：**隱藏層（hidden layers）的首選**
 - 優點：梯度不消失（$z>0$ 時梯度恆為 1），計算快
 
+> [!info] 💡 ReLU 如何逼近複雜函數？（來自 C2_W2_Relu.ipynb）
+> ReLU 的「關閉」特性（$z \leq 0$ 時輸出 0）使得每個神經元可以在特定區間「開啟」或「關閉」。多個 ReLU 神經元組合後，就像拼接多段線性函數（piecewise linear），能逼近任意複雜的非線性函數。
+> - **第 1 個神經元**：負責第一段斜率
+> - **第 2 個神經元**：在轉折點「開啟」，疊加新的斜率
+> - **第 3 個神經元**：在下一個轉折點再疊加
+> 
+> 這就是為什麼 ReLU 是非線性激活——它的「關閉」區域讓模型能選擇性地啟用不同神經元來建構複雜曲線。
+
 #### Linear（線性）
 
 $$g(z) = z$$
@@ -380,3 +388,6 @@ $$\frac{\partial J}{\partial Z^{[l]}} = (W^{[l+1]})^T \cdot \frac{\partial J}{\p
 - [[C2-W1 - Neural Networks]] — 神經網路結構與前向傳播
 - [[C2-W3 - Advice for Applying ML]] — 如何評估和改進訓練好的模型
 - [[C1-W3 - Classification]] — 邏輯回歸 = Softmax 的二類別特例
+- [[KP-05 - 激活函數]] — 現代激活函數的演進：GELU、Swish、SwiGLU
+- [[KP-03 - 損失函數]] — Cross-Entropy、Label Smoothing、Focal Loss 等進階損失函數
+- [[KP-02 - 現代優化器]] — Adam 的完整數學推導與 AdamW、Lion 等後續發展

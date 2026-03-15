@@ -26,6 +26,7 @@ videos:
   - "C2_W4_01 [Decision_Trees]"
   - "C2_W4_02 [Decision_Tree_Learning]"
   - "C2_W4_03 [Tree_Ensembles]"
+  - "C2_W4_04 [Conversations_with_Andrew] Andrew Ng and Chris Manning on NLP"
 related:
   - "[[C2-W3 - Advice for Applying ML]]"
   - "[[C3-W1 - Clustering & Anomaly Detection]]"
@@ -54,6 +55,9 @@ mindmap
       Random Forest
       XGBoost
       When to Use?
+    Conversation
+      Andrew Ng & Chris Manning
+      NLP Evolution
 ```
 
 ---
@@ -271,7 +275,49 @@ predictions = model.predict(X_test)
 
 ---
 
-## 7. 重點總結
+## 7. Conversations with Andrew：Andrew Ng & Chris Manning on NLP
+
+> 📹 **影片來源：** C2_W4_04 [Conversations_with_Andrew]_Andrew_Ng_and_Chris_Manning_on_NLP.mp4
+
+### 7.1 Chris Manning 簡介
+
+**Chris Manning** 是 Stanford 大學計算機科學與語言學教授，Stanford NLP Group 創辦人之一，自然語言處理（NLP）領域最具影響力的學者之一。他的研究涵蓋 statistical NLP、deep learning for NLP、以及語言理解的核心問題。
+
+### 7.2 NLP 的演進歷程
+
+Andrew Ng 與 Chris Manning 討論了 NLP 從規則驅動到深度學習的發展歷程：
+
+```mermaid
+graph LR
+    A["規則式 NLP<br/>（1950s–1980s）<br/>手寫語法規則"] --> B["統計式 NLP<br/>（1990s–2000s）<br/>N-gram、HMM、CRF"]
+    B --> C["Word Embeddings<br/>（2013）<br/>Word2Vec、GloVe"]
+    C --> D["Sequence Models<br/>（2014–2017）<br/>LSTM、Seq2Seq、Attention"]
+    D --> E["Transformer 時代<br/>（2017–今）<br/>BERT、GPT"]
+```
+
+**關鍵轉折點：**
+- **Word2Vec（2013）：** 將詞彙映射到連續向量空間，語義相似的詞有相近的向量。例如 `King - Man + Woman ≈ Queen`，這讓 NLP 從離散符號走向連續表示。
+- **Attention Mechanism（2014–2015）：** 讓模型在翻譯時「注意」輸入句子的相關部分，大幅提升機器翻譯品質。
+- **Transformer（2017）：** 完全取代 RNN 架構，成為 NLP 的基礎。（詳見 [[KP-06 - Attention 機制與 Transformer]]）
+
+### 7.3 對話核心洞察
+
+| 主題 | Manning 的觀點 |
+|------|--------------|
+| **深度學習對 NLP 的影響** | 深度學習使 NLP 從「特徵工程」轉向「端到端學習」，模型自動從原始文字學習有用的表示 |
+| **語言理解的挑戰** | 真正的語言理解仍是開放問題——模型擅長模式匹配（pattern matching），但對推理（reasoning）和常識（common sense）仍有限制 |
+| **預訓練的力量** | 大型預訓練模型（如 BERT、GPT）在少量標注資料上就能達到很好的效果，改變了 NLP 的研究範式（詳見 [[KP-08 - 自監督與對比學習]]） |
+| **對 NLP 入門者的建議** | 學好基礎（線性代數、機率、機器學習），然後從實際任務（如文本分類、命名實體識別）動手做起 |
+
+### 7.4 與課程內容的關聯
+
+- **One-Hot Encoding（Section 3.1）** 是 NLP 中早期表示詞彙的方式，但缺乏語義資訊 → Word Embeddings 解決了這個問題
+- **Decision Trees vs Neural Networks（Section 6）** 的討論直接延伸到 NLP 領域：NLP 是神經網路明確優於決策樹的場景（非結構化、序列性的文字資料）
+- **Transfer Learning（[[C2-W3 - Advice for Applying ML#4.4 Transfer Learning]]）** 在 NLP 中尤其重要——預訓練語言模型 + Fine-tune 已成為標準流程
+
+---
+
+## 8. 重點總結
 
 | 概念 | 核心要點 |
 |------|---------|
@@ -280,10 +326,14 @@ predictions = model.predict(X_test)
 | 一位熱編碼 | 類別特徵 → $k$ 個二元特徵 |
 | Random Forest | B 棵樹 + 放回抽樣 + 隨機 $k$ 個特徵 |
 | XGBoost | Boosting：後樹修正前樹的錯誤 |
+| NLP 演進 | 規則 → 統計 → Word Embeddings → Transformer |
 
 ---
 
 ## 🔗 Related Notes
 
-- [[C2-W3 - Advice for Applying ML]] — Bias/Variance 診斷也適用於決策樹
+- [[C2-W3 - Advice for Applying ML]] — Bias/Variance 診斷也適用於決策樹；Transfer Learning 在 NLP 中的核心角色
 - [[C3-W1 - Clustering & Anomaly Detection]] — 無監督學習
+- [[KP-06 - Attention 機制與 Transformer]] — Transformer 架構：NLP 的基礎
+- [[KP-08 - 自監督與對比學習]] — 預訓練語言模型（BERT、GPT）的自監督學習範式
+- [[KP-11 - 表格資料與現代決策樹]] — XGBoost/LightGBM 在表格資料上的優勢

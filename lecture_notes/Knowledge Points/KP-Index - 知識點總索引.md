@@ -121,14 +121,14 @@ graph TD
 | [[C2-W1 - Neural Networks]] | [[KP-06 - Attention 機制與 Transformer]]（Transformer 架構）|
 | [[C2-W2 - Neural Network Training]] | [[KP-05 - 激活函數]]（GELU, SwiGLU）、[[KP-02 - 現代優化器]]（AdamW）|
 | [[C2-W3 - Advice for Applying ML]] | [[KP-07 - 縮放法則與湧現能力]]（大模型 vs 小模型）、[[KP-04 - 正則化技術]]（Pre-LN, DropPath）|
-| [[C2-W4 - Decision Trees]] | [[KP-11 - 表格資料與現代決策樹]]（LightGBM, CatBoost, SHAP）|
+| [[C2-W4 - Decision Trees]] | [[KP-11 - 表格資料與現代決策樹]]（LightGBM, CatBoost, SHAP）、[[KP-06 - Attention 機制與 Transformer]]（NLP 與 Transformer 演進）、[[KP-08 - 自監督與對比學習]]（預訓練語言模型）|
 
 ### Course 3（非監督學習）的延伸
 
 | 課程筆記 | 延伸知識點 |
 |---------|-----------|
 | [[C3-W1 - Clustering & Anomaly Detection]] | [[KP-08 - 自監督與對比學習]]（SimCLR, MAE）|
-| [[C3-W2 - Recommender Systems & PCA]] | [[KP-10 - 現代推薦系統]]（序列推薦, LLM 推薦）|
+| [[C3-W2 - Recommender Systems & PCA]] | [[KP-10 - 現代推薦系統]]（序列推薦, LLM 推薦）、[[KP-08 - 自監督與對比學習]]（Embedding 與對比學習）、[[KP-03 - 損失函數]]（InfoNCE Loss）|
 | [[C3-W3 - Reinforcement Learning]] | [[KP-09 - RLHF 與現代強化學習]]（PPO, DPO, InstructGPT）|
 
 ---

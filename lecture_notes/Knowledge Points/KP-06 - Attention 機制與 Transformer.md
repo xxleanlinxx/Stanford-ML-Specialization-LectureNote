@@ -39,6 +39,11 @@ related_kp:
 
 **Attention 的核心思想：** 讓模型在處理每個位置時，**直接關注序列中所有其他位置**，而不是通過中間隱向量。
 
+> [!tip] 🎯 白話舉例：Attention 像開會時的目光
+> 想像你在開會，主持人問「下季行銷策略怎麼做？」。
+> - **RNN** = 你只能看到左邊的同事，他把之前所有人的意見「壓縮」成一句話傳給你——資訊大量流失
+> - **Attention** = 你可以**直接看向會議室裡的每一個人**，評估「誰的意見和這個問題最相關」，然後重點聽取最相關的人的意見
+
 ---
 
 ## 2. Scaled Dot-Product Attention
@@ -79,6 +84,14 @@ $$\text{head}_i = \text{Attention}(QW_i^Q, KW_i^K, VW_i^V)$$
 
 典型設定（GPT-3）：$h=96$ 個頭，$d_{\text{model}}=12288$，$d_k = d_v = 128$
 
+> [!tip] 🎯 白話舉例：Multi-Head Attention 像多個專家同時看同一件事
+> 一張句子「小明和小華去了公園，**他**買了冰淇淋」，不同的注意力頭會關注不同面向：
+> - **頭 1**（語法頭）→ 「他」指的是誰？→ 關注「小明」
+> - **頭 2**（語義頭）→ 「公園」和「冰淇淋」的場景關係
+> - **頭 3**（動詞頭）→ 「去」和「買」的時間順序
+>
+> 多個頭同時工作，然後把各自的「專家意見」合併，就得到了對這句話的全方位理解。
+
 ---
 
 ## 4. Transformer 架構
@@ -96,8 +109,17 @@ graph TB
 
 **關鍵設計原則：**
 1. **Residual Connections（殘差連接）：** 防止梯度消失，讓資訊繞過每層
-2. **Layer Normalization：** 穩定訓練（詳見 [[KP-04 - 正則化技術#Layer Normalization（LN）]]）
-3. **FFN with SwiGLU：** 大部分參數集中在 FFN（佔比 ~2/3）
+2. **Layer Normalization：** 穩定訓練（詳見 [[KP-04 - 正則化技術#5. Layer Normalization（LN）★ Transformer 標配]]）
+3. **FFN with SwiGLU：** 大部分參數集中在 FFN（佔比 ~2/3）（詳見 [[KP-05 - 激活函數#5. SwiGLU ★ 現代 LLM 標配]]）
+
+> [!tip] 🎯 白話舉例：Transformer Block 像一條生產線
+> 每個 Transformer Block 就像工廠的一個工作站：
+> 1. **Self-Attention** = 工人先和其他所有工作站**開會討論**，決定「誰的工件和我的最相關」
+> 2. **Add & Norm** = 把討論結果和原本的工件合併（殘差），再標準化品質檢查（LN）
+> 3. **FFN** = 工人自己**深入加工**每個工件（SwiGLU 篩選重要特徵）
+> 4. **Add & Norm** = 再次合併 + 品檢
+>
+> 疊疊 N 層（如 LLaMA3-70B = 80 層），每層都在前一層的基礎上提取更抽象的特徵。
 
 ---
 
@@ -113,6 +135,11 @@ $$PE_{(pos, 2i+1)} = \cos(pos / 10000^{2i/d_{\text{model}}})$$
 ### 5.2 RoPE（Rotary Position Embedding）★ 現代 LLM 標配
 
 **核心思想：** 通過旋轉矩陣將位置信息**乘性地**融入 Q、K，使得 $Q_m \cdot K_n$ 只依賴於**相對位置** $m-n$。
+
+> [!tip] 🎯 白話舉例：位置編碼像座位號
+> Attention 本身不知道詞的順序（「狗咬人」和「人咬狗」看起來一樣），所以需要給每個詞貼上「座位號」。
+> - **Sinusoidal PE** = 座位號是固定的（第 1 排、第 2 排…），簡單但不靈活
+> - **RoPE** = 不直接貼座位號，而是讓每個詞的向量**旋轉一個角度**，旋轉多少取決於位置。兩個詞之間的「距離感」自然地由旋轉角度差決定，更靈活且能處理更長序列
 
 $$q_m^T k_n = (\mathcal{R}_m q)^T (\mathcal{R}_n k) = q^T \mathcal{R}_{n-m} k$$
 
@@ -147,6 +174,10 @@ $$\text{Image} \xrightarrow{\text{切 patches}} [p_1, p_2, \ldots, p_N] \xrighta
 
 **關鍵發現：** ViT 在大規模預訓練資料上優於 CNN；在小資料集上需要更多正則化。
 
+> [!tip] 🎯 白話舉例：ViT 像拼圖遊戲
+> CNN 用「滑動窗口」一小塊一小塊地看圖片（先看局部，再組合成全局）。
+> ViT 則是把圖片**切成一塊塊拼圖**，然後讓每塊拼圖都能**直接看到所有其他塊**（透過 Attention）。這讓它能立即掌握全局資訊（圖片左上角和右下角的關係），但需要更多資料才能學好。
+
 ### 6.2 BERT（Bidirectional Encoder）
 
 **預訓練任務：**
@@ -174,6 +205,13 @@ $$\mathcal{L} = \mathcal{L}_{\text{MLM}} + \mathcal{L}_{\text{NSP}}$$
 
 **效果：** 速度提升 2-4×，記憶體節省 5-20×，精度與標準 Attention **完全相同**。
 
+**Flash Attention 2：**
+> Dao, T. (2023). **FlashAttention-2: Faster Attention with Better Parallelism and Work Partitioning.** [arxiv:2307.08691](https://arxiv.org/abs/2307.08691)
+
+> [!tip] 🎯 白話舉例：Flash Attention 像智慧型倉庫管理
+> 標準 Attention 就像把所有貨物都放到一張**巨大的桌子**（HBM 記憶體）上排列，再一個個挑選——桌子放不下時就崩潰了。
+> Flash Attention 則是用「小手推車」（SRAM 快取記憶體）**分批處理**：每次只搬一小批貨物到工作檯台，處理完再搬下一批。結果完全一樣，但速度更快、不佔空間。
+
 ### 7.2 Grouped Query Attention（GQA）
 
 每組 Query 頭共享一組 Key/Value，減少 KV Cache 大小：
@@ -187,6 +225,10 @@ $$\mathcal{L} = \mathcal{L}_{\text{MLM}} + \mathcal{L}_{\text{NSP}}$$
 > Ainslie, J. et al. (2023). **GQA: Training Generalized Multi-Query Transformer Models.** [arxiv:2305.13245](https://arxiv.org/abs/2305.13245)
 
 **使用模型：** LLaMA2/3（GQA），GPT-3.5/4（推測）
+
+> [!tip] 🎯 白話舉例：GQA 像共用筆記的讀書會
+> MHA 中每個注意力頭都有自己的 K/V（像每個人都帶自己的筆記本）。
+> GQA 讓幾個頭**共用同一本筆記**（共享 K/V）——節省了存放筆記本的空間（KV Cache），速度更快，但參考的資訊稍微減少。MQA 則是所有人共用**同一本**，程度最極端。
 
 ---
 
@@ -206,14 +248,16 @@ $$\mathcal{L} = \mathcal{L}_{\text{MLM}} + \mathcal{L}_{\text{NSP}}$$
 
 ## 🔗 相關知識點
 
-- [[KP-05 - 激活函數]] — SwiGLU 在 Transformer FFN 中
-- [[KP-04 - 正則化技術]] — Pre-LN、RMSNorm、DropPath
-- [[KP-07 - 縮放法則與湧現能力]] — Transformer 的規模化效應
-- [[KP-08 - 自監督與對比學習]] — BERT MLM / MAE 等預訓練方法
-- [[KP-09 - RLHF 與現代強化學習]] — Transformer 作為 LLM 基礎
+- [[KP-05 - 激活函數]] — SwiGLU / GELU 在 Transformer FFN 中的核心地位
+- [[KP-04 - 正則化技術]] — Pre-LN、RMSNorm、DropPath 在 Transformer 中的必要性
+- [[KP-01 - 超參數與學習率]] — Transformer 訓練幾乎必備 Warmup + LR Decay
+- [[KP-02 - 現代優化器]] — AdamW 是 Transformer 訓練的標準優化器
+- [[KP-07 - 縮放法則與湧現能力]] — Transformer 的規模化效應與 Scaling Laws
+- [[KP-08 - 自監督與對比學習]] — BERT MLM / MAE / CLIP 等預訓練方法
+- [[KP-09 - RLHF 與現代強化學習]] — Transformer 作為 LLM 基礎，RLHF 對齊
 
 ## 🔗 相關課程筆記
 
-- [[C2-W1 - Neural Networks]] — 前向傳播與神經網路基礎
-- [[C2-W2 - Neural Network Training]] — 反向傳播與訓練技巧
-- [[C3-W2 - Recommender Systems & PCA]] — 雙塔模型中的 Embedding
+- [[C2-W1 - Neural Networks]] — 前向傳播與神經網路基礎（Transformer 的前身）
+- [[C2-W2 - Neural Network Training]] — 反向傳播、Adam、Softmax
+- [[C3-W2 - Recommender Systems & PCA]] — 雙塔模型中的 Embedding 與 Attention 應用

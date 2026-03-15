@@ -236,7 +236,80 @@ graph LR
 - **Retrieval：** 用 Approximate Nearest Neighbor 快速找出與使用者 embedding 相近的商品
 - **Ranking：** 對候選商品用完整模型精確排序
 
-### 5.3 Ethical Use of Recommender Systems
+### 5.3 TensorFlow Implementation of Content-Based Filtering
+
+> 📓 **來源：** C3_W2_RecSysNN_Assignment.ipynb
+
+**完整的雙塔模型實作（Keras Functional API）：**
+
+```python
+import tensorflow as tf
+from tensorflow import keras
+from sklearn.preprocessing import StandardScaler, MinMaxScaler
+
+num_outputs = 32  # embedding 向量維度
+num_user_features = 14  # 使用者特徵數（去除 id、rating count 等）
+num_item_features = 16  # 電影特徵數（去除 movie id）
+
+# 使用者塔（User Tower）
+user_NN = tf.keras.models.Sequential([
+    tf.keras.layers.Dense(256, activation='relu'),
+    tf.keras.layers.Dense(128, activation='relu'),
+    tf.keras.layers.Dense(num_outputs),         # 輸出 embedding（無激活）
+])
+
+# 電影塔（Item Tower）
+item_NN = tf.keras.models.Sequential([
+    tf.keras.layers.Dense(256, activation='relu'),
+    tf.keras.layers.Dense(128, activation='relu'),
+    tf.keras.layers.Dense(num_outputs),
+])
+
+# 使用 Functional API 組合雙塔
+input_user = tf.keras.layers.Input(shape=(num_user_features,))
+vu = user_NN(input_user)
+vu = tf.linalg.l2_normalize(vu, axis=1)  # L2 正規化，確保向量在單位球上
+
+input_item = tf.keras.layers.Input(shape=(num_item_features,))
+vm = item_NN(input_item)
+vm = tf.linalg.l2_normalize(vm, axis=1)
+
+output = tf.keras.layers.Dot(axes=1)([vu, vm])  # 點積 → 預測評分
+model = tf.keras.Model([input_user, input_item], output)
+
+# 訓練
+model.compile(optimizer=keras.optimizers.Adam(learning_rate=0.01),
+              loss=tf.keras.losses.MeanSquaredError())
+model.fit([user_train, item_train], y_train, epochs=30)
+```
+
+**關鍵實作細節：**
+
+| 細節 | 說明 |
+|------|------|
+| **L2 正規化** | `tf.linalg.l2_normalize` 確保 embedding 向量在單位球面上，使點積等效於 cosine similarity |
+| **特徵縮放** | 訓練前用 `StandardScaler` 標準化使用者和電影特徵，用 `MinMaxScaler(-1, 1)` 縮放目標評分 |
+| **使用者特徵** | 每個 genre 的平均評分（14 個 genre）→ 刻畫使用者偏好 |
+| **電影特徵** | 上映年份 + 平均評分 + genre one-hot 向量（14 維） |
+
+**找相似電影（基於學到的 embedding）：**
+
+```python
+# 提取電影 embedding
+item_vecs = item_NN(scaled_item_features)  # (n_movies, 32)
+item_vecs = tf.linalg.l2_normalize(item_vecs, axis=1).numpy()
+
+# 計算與目標電影的距離
+def sq_dist(a, b):
+    return np.sum((a - b) ** 2)
+
+target_movie_vec = item_vecs[target_idx]
+distances = [sq_dist(target_movie_vec, item_vecs[i]) for i in range(len(item_vecs))]
+sorted_indices = np.argsort(distances)  # 距離由小到大
+# sorted_indices[:10] 即為最相似的 10 部電影
+```
+
+### 5.4 Ethical Use of Recommender Systems
 
 > **反思：** 推薦系統的目標不只是最大化點擊/觀看時間，也需要考慮：
 > - 是否助長了信息繭房（filter bubble）？
@@ -381,3 +454,6 @@ X_recovered = pca.inverse_transform(X_reduced)
 - [[C3-W1 - Clustering & Anomaly Detection]] — 其他無監督學習方法
 - [[C2-W1 - Neural Networks]] — 雙塔模型用到神經網路
 - [[C3-W3 - Reinforcement Learning]] — 課程最後一週
+- [[KP-10 - 現代推薦系統]] — 從 Two-Tower 到 LLM-based 推薦系統的演進；SASRec、BERT4Rec 等序列推薦
+- [[KP-08 - 自監督與對比學習]] — Embedding 學習與對比學習在推薦系統中的應用
+- [[KP-03 - 損失函數]] — InfoNCE Loss 與推薦系統中的對比損失函數

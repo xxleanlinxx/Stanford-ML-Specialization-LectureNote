@@ -343,3 +343,5 @@ graph LR
 - [[C1-W1 - Introduction to Machine Learning]] — 無監督學習的基本概念
 - [[C3-W2 - Recommender Systems & PCA]] — 更多無監督方法（PCA 降維）
 - [[C2-W3 - Advice for Applying ML]] — Precision/Recall 評估指標詳解
+- [[KP-08 - 自監督與對比學習]] — K-Means 與對比學習的關聯：簇分配與表徵學習
+- [[KP-03 - 損失函數]] — 異常偵測中的概率密度估計與損失函數設計

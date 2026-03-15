@@ -277,3 +277,6 @@ $$w_j \leftarrow w_j - \alpha \left[ \frac{1}{m} \sum_{i=1}^{m} \left(f(\vec{x}^
 - [[C1-W2 - Regression with Multiple Input Variables]] — 多特徵迴歸
 - [[C2-W2 - Neural Network Training]] — 神經網路的訓練與激活函數
 - [[C2-W3 - Advice for Applying ML]] — 診斷 Bias/Variance，選擇正則化強度
+- [[KP-04 - 正則化技術]] — L1/L2 正則化的數學原理與現代擴展（Dropout、Mixup）
+- [[KP-05 - 激活函數]] — Sigmoid 的局限性與現代激活函數的演進
+- [[KP-03 - 損失函數]] — Cross-Entropy Loss 的完整探討與 Label Smoothing 等進階技巧

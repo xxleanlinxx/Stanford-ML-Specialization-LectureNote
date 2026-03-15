@@ -269,3 +269,5 @@ $$\vec{w} = (X^T X)^{-1} X^T \vec{y}$$
 - [[C1-W1 - Introduction to Machine Learning]] — 單特徵線性回歸基礎
 - [[C1-W3 - Classification]] — 分類問題
 - [[C2-W1 - Neural Networks]] — 神經網路也用類似的梯度下降訓練
+- [[KP-01 - 超參數與學習率]] — Feature Scaling 與 Batch Size 的關係；進階學習率調整策略
+- [[KP-04 - 正則化技術]] — L1/L2 正則化的數學原理與現代擴展（Dropout、BatchNorm）

@@ -72,7 +72,7 @@ graph TD
 | Week 1 | [[C2-W1 - Neural Networks]] | 神經網路直覺、前向傳播、TensorFlow、矩陣乘法 |
 | Week 2 | [[C2-W2 - Neural Network Training]] | ReLU/Softmax、Adam Optimizer、反向傳播 |
 | Week 3 | [[C2-W3 - Advice for Applying ML]] | Train/CV/Test、Bias-Variance、Error Analysis、Transfer Learning、F1 Score |
-| Week 4 | [[C2-W4 - Decision Trees]] | 信息增益、Entropy、Random Forest、XGBoost |
+| Week 4 | [[C2-W4 - Decision Trees]] | 信息增益、Entropy、Random Forest、XGBoost、Andrew Ng & Chris Manning on NLP |
 
 → [[Course 2 - Index]]
 
@@ -83,8 +83,8 @@ graph TD
 | 週次 | 筆記 | 主題 |
 |------|------|------|
 | Week 1 | [[C3-W1 - Clustering & Anomaly Detection]] | K-Means、高斯密度估計、異常偵測演算法 |
-| Week 2 | [[C3-W2 - Recommender Systems & PCA]] | 協同過濾、內容過濾、雙塔網路、PCA 降維 |
-| Week 3 | [[C3-W3 - Reinforcement Learning]] | MDP、Bellman 方程、Q-function、DQN、Replay Buffer |
+| Week 2 | [[C3-W2 - Recommender Systems & PCA]] | 協同過濾、內容過濾、雙塔網路 TF 實作、PCA 降維 |
+| Week 3 | [[C3-W3 - Reinforcement Learning]] | MDP、Bellman 方程、Q-function、DQN、Andrew Ng & Chelsea Finn on AI/Robotics |
 
 → [[Course 3 - Index]]
 
@@ -136,3 +136,11 @@ graph TD
 | Collaborative Filtering | 無監督/推薦 | 評分矩陣 | 推薦系統 |
 | PCA | 無監督/降維 | 無標籤 | 視覺化、壓縮 |
 | Deep Q-Network | 強化學習 | 環境互動 | 遊戲、機器人控制 |
+
+---
+
+## 📎 Post-2020 學術前沿補充
+
+> 以下知識點筆記補充了課程未涵蓋的 2020 年後前沿研究，每篇均含嚴謹的學術文獻來源。
+
+→ [[KP-Index - 知識點總索引]] — 完整知識點體系架構與課程對應關係

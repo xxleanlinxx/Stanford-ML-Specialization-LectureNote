@@ -361,3 +361,6 @@ $$F_1 = \frac{2 \cdot \text{Precision} \cdot \text{Recall}}{\text{Precision} + \
 - [[C2-W2 - Neural Network Training]] — 激活函數、Softmax、訓練技巧
 - [[C2-W4 - Decision Trees]] — 另一種強大的分類模型
 - [[C1-W3 - Classification]] — 正則化基礎
+- [[KP-04 - 正則化技術]] — Dropout、Data Augmentation、Mixup 等現代正則化方法
+- [[KP-01 - 超參數與學習率]] — 超參數搜尋策略（Hyperband、μP）與學習率排程
+- [[KP-08 - 自監督與對比學習]] — Transfer Learning 的進階形式：自監督預訓練

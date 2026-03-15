@@ -25,6 +25,8 @@ videos:
   - "C3_W3_01 [Reinforcement_Learning]"
   - "C3_W3_02 [StateAction_Value_Function]"
   - "C3_W3_03 [Continuous_State_Spaces]"
+  - "C3_W3_04 [Summary_and_Thank_you]"
+  - "C3_W3_05 [Andrew_Ng_and_Chelsea_Finn_on_AI_and_Robotics]"
 related:
   - "[[C3-W2 - Recommender Systems & PCA]]"
   - "[[C2-W1 - Neural Networks]]"
@@ -58,6 +60,10 @@ mindmap
         Soft Update
         Greedy Policy
         Mini-batch
+    Conversation
+      Andrew Ng & Chelsea Finn
+      AI & Robotics
+    Course Summary
 ```
 
 ---
@@ -397,7 +403,82 @@ For episode = 1, ..., N:
 
 ---
 
-## 13. 重點總結
+## 13. Conversations with Andrew：Andrew Ng & Chelsea Finn on AI and Robotics
+
+> 📹 **影片來源：** C3_W3_05 [Andrew_Ng_and_Chelsea_Finn_on_AI_and_Robotics].mp4
+
+### 13.1 Chelsea Finn 簡介
+
+**Chelsea Finn** 是 Stanford 大學計算機科學助理教授，研究專長為機器人學習（Robot Learning）、元學習（Meta-Learning）和強化學習。她提出的 **MAML（Model-Agnostic Meta-Learning）** 是元學習領域最具影響力的方法之一。
+
+### 13.2 對話核心主題
+
+| 主題 | 核心觀點 |
+|------|---------|
+| **RL 在機器人中的應用** | 機器人是 RL 最自然的應用場景——agent 在物理世界中互動、學習。但真實世界的 RL 面臨安全性、樣本效率、環境不確定性等挑戰 |
+| **Sim-to-Real Transfer** | 先在模擬器中訓練 RL 策略，再遷移到真實機器人。關鍵挑戰是「模擬器與真實世界的差距（sim-to-real gap）」 |
+| **Meta-Learning（元學習）** | 「學習如何學習」——讓模型從少量範例中快速適應新任務。MAML 通過學習一個好的初始化參數，使得幾步梯度下降就能適應新任務 |
+| **資料效率的重要性** | 真實世界中收集資料很昂貴（機器人操作一次可能需要幾秒到幾分鐘），因此提高樣本效率是關鍵研究方向 |
+| **多模態感知** | 機器人需要整合視覺、觸覺、力覺等多種感知模態來理解和操控物理世界 |
+
+### 13.3 與課程內容的關聯
+
+```mermaid
+graph LR
+    DQN["DQN（Section 9）<br/>離散動作空間"] --> ROBOT["機器人控制<br/>連續動作空間"]
+    ROBOT --> PG["Policy Gradient<br/>（進階 RL 方法）"]
+    SIM["模擬器訓練<br/>（Lunar Lander）"] --> S2R["Sim-to-Real<br/>遷移到真實機器人"]
+    TL["Transfer Learning<br/>（C2-W3）"] --> META["Meta-Learning<br/>快速適應新任務"]
+```
+
+- **Lunar Lander（Section 8）** 是一個簡化的模擬環境；真實機器人控制的狀態空間和動作空間遠更複雜
+- **ε-Greedy 探索（Section 10.5）** 在機器人場景中需要更安全的探索策略——不能讓機器人隨機亂動導致損壞
+- **Transfer Learning（[[C2-W3 - Advice for Applying ML#4.4 Transfer Learning]]）** 是 Sim-to-Real 和 Meta-Learning 的基礎概念
+
+### 13.4 對 RL 學習者的建議
+
+> **Chelsea Finn 的建議：**
+> 1. 從基礎開始——先理解 MDP、Value Function、Policy Gradient 等核心概念
+> 2. 動手實作——Gym/Gymnasium 環境是很好的練習場
+> 3. RL 的研究進展非常快，保持對最新論文的關注
+> 4. 不要忽視「環境設計」——好的獎勵函數（reward shaping）和狀態表示（state representation）往往比演算法本身更重要
+
+---
+
+## 14. Course Summary & Thank You（課程總結）
+
+> 📹 **影片來源：** C3_W3_04 [Summary_and_Thank_you].mp4
+
+### 14.1 三門課程回顧
+
+```mermaid
+graph TB
+    subgraph C1["Course 1：Supervised Learning"]
+        C1a["Linear Regression"] --> C1b["Logistic Regression"]
+        C1b --> C1c["Gradient Descent<br/>& Regularization"]
+    end
+    subgraph C2["Course 2：Advanced Learning Algorithms"]
+        C2a["Neural Networks"] --> C2b["Training & Activation"]
+        C2b --> C2c["Bias/Variance<br/>& ML Dev Process"]
+        C2c --> C2d["Decision Trees<br/>& Ensembles"]
+    end
+    subgraph C3["Course 3：Unsupervised, Recommenders, RL"]
+        C3a["Clustering<br/>& Anomaly Detection"] --> C3b["Recommender Systems<br/>& PCA"]
+        C3b --> C3c["Reinforcement Learning"]
+    end
+    C1 --> C2 --> C3
+```
+
+### 14.2 Andrew Ng 的結語要點
+
+- **ML 是一個強大的工具**，但選擇正確的問題和正確的方法比套用最複雜的演算法更重要
+- **迭代開發**是 ML 成功的關鍵——很少有第一次嘗試就完美的模型
+- **倫理責任**——作為 ML 從業者，我們有責任確保技術被用於造福社會
+- **持續學習**——ML 領域發展極快，課程只是起點，鼓勵學員持續探索 Deep Learning Specialization 等進階課程
+
+---
+
+## 15. 重點總結
 
 | 概念 | 核心公式 |
 |------|---------|
@@ -415,3 +496,5 @@ For episode = 1, ..., N:
 - [[C3-W2 - Recommender Systems & PCA]] — 其他無監督/自學習方法
 - [[C2-W1 - Neural Networks]] — DQN 的核心網路結構
 - [[C2-W2 - Neural Network Training]] — 神經網路訓練技巧
+- [[C2-W3 - Advice for Applying ML]] — Transfer Learning 是 Sim-to-Real 和 Meta-Learning 的基礎
+- [[KP-09 - RLHF 與現代強化學習]] — RL 在 LLM 對齊中的應用（RLHF、PPO、DPO）

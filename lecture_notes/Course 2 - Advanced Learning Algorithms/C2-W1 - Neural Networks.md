@@ -333,3 +333,5 @@ $$C_{m \times p} = A_{m \times n} \cdot B_{n \times p}$$
 - [[C1-W3 - Classification]] — Logistic Regression 是最簡單的「單神經元」網路
 - [[C2-W2 - Neural Network Training]] — 訓練神經網路：反向傳播、激活函數選擇
 - [[C2-W3 - Advice for Applying ML]] — 如何診斷並改進神經網路
+- [[KP-06 - Attention 機制與 Transformer]] — 從基礎神經網路到 Transformer 架構的演進
+- [[KP-04 - 正則化技術]] — BatchNorm、LayerNorm 等現代神經網路必備技術

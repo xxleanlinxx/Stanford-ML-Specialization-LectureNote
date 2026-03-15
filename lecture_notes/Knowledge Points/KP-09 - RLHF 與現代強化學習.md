@@ -45,6 +45,13 @@ graph LR
 
 **RLHF 的目標（Alignment）：** 讓模型的行為與**人類偏好和價值觀**對齊（Helpful, Honest, Harmless — 3H 原則）。
 
+> [!tip] 🎯 白話舉例：RLHF 像訓練客服人員
+> 預訓練的 LLM 像一個讀了整個網路的人，知識淵博但「沒有讀空氣」——有時說廢話、有時提供危險建議、有時回答與問題無關。
+> RLHF 就是讓這個人「上客服培訓班」：
+> - **步驟 1（SFT）** = 看優秀客服的示範對話，學習基本禮儀
+> - **步驟 2（RM）** = 主管對回答打分，建立「什麼是好回答」的標準
+> - **步驟 3（PPO）** = 根據評分不斷練習改進，但不能偏離原來的知識太多
+
 ---
 
 ## 3. RLHF 完整流程（InstructGPT）
@@ -60,7 +67,7 @@ graph TD
 **論文來源：**
 > Ouyang, L. et al. (2022). **Training Language Models to Follow Instructions with Human Feedback.** *NeurIPS 2022.* [arxiv:2203.02155](https://arxiv.org/abs/2203.02155)
 
-**關鍵結果：** 1.3B 參數的 InstructGPT 在人類評估中優於 175B 的原始 GPT-3。
+**關鍵結果：** 1.3B 參數的 InstructGPT 在人類評估中優於 175B 的原始 GPT-3。這證明了「對齊」的價值可能比「規模」更大（參見 [[KP-07 - 縮放法則與湧現能力]]）。
 
 ### 3.2 獎勵模型（Reward Model）
 
@@ -85,6 +92,9 @@ $$\mathcal{L}^{\text{CLIP}}(\theta) = \mathbb{E}_t\left[\min\left(r_t(\theta) A_
 
 **白話：** 「允許策略在獎勵好時更新，但不能更新太多（裁剪防止過大步長）。」
 
+> [!tip] 🎯 白話舉例：PPO 像「小步快走」的策略
+> 想像你在訓練一隻導盲犬。每次它做對了你就給零食（獎勵），但你不能讓它一次改變太多行為（裁剪）——否則它可能從「探索型」突變成「只做一個動作」（策略崩潰）。PPO 的裁剪機制確保每次更新都是「小步快走」，穩定且安全。
+
 **論文來源：**
 > Schulman, J. et al. (2017). **Proximal Policy Optimization Algorithms.** [arxiv:1707.06347](https://arxiv.org/abs/1707.06347)
 
@@ -94,6 +104,9 @@ $$r(x, y) = r_\phi(x, y) - \beta \cdot D_{\text{KL}}\left[\pi_\theta(y|x) \| \pi
 
 - $r_\phi(x, y)$：獎勵模型分數
 - $\beta D_{\text{KL}}[\cdot]$：防止偏離原始模型（避免「獎勵黑客」— reward hacking）
+
+> [!tip] 🎯 白話舉例：KL 懲罰像「不能偏離原來的自己太多」
+> 沒有 KL 懲罰的話，模型可能為了拿高分而「作弊」——比如學會「用特定短語騙過評分器」而不是真正提升回答品質。KL 懲罰就像告訴模型：「你可以改進，但不能變成一個完全不同的人。」（詳見 [[KP-03 - 損失函數#5. KL Divergence（KL 散度）]]）
 
 ---
 
@@ -129,8 +142,18 @@ $$\mathcal{L}_{\text{DPO}}(\pi_\theta) = -\mathbb{E}_{(x,y_w,y_l)}\left[\log \si
 
 **白話：** 直接用偏好對 $(y_w, y_l)$ 訓練語言模型，**無需訓練 RM，無需 PPO**，只需一個標準的監督損失。
 
+> [!tip] 🎯 白話舉例：DPO 像「直接從考卷學」
+> RLHF 的流程是：先訓練一個「評分老師」（RM），再讓學生根據評分老師的回饋練習（PPO）。這很複雜。
+> DPO 說：「何不直接給學生看『好答案 vs 壞答案』的對照表，讓它自己學會區分？」——不需要評分老師，不需要複雜的 RL，只要一個簡單的損失函數。
+
 **論文來源：**
 > Rafailov, R. et al. (2023). **Direct Preference Optimization: Your Language Model is Secretly a Reward Model.** *NeurIPS 2023.* [arxiv:2305.18290](https://arxiv.org/abs/2305.18290)
+
+**DPO 的後續發展：**
+
+**GRPO（Group Relative Policy Optimization）：** DeepSeek 提出的替代方案，不需要 Critic 模型，透過組內相對排名來估計優勢函數，大幅降低訓練成本。
+
+> Shao, Z. et al. (2024). **DeepSeekMath: Pushing the Limits of Mathematical Reasoning in Open Language Models.** [arxiv:2402.03300](https://arxiv.org/abs/2402.03300)
 
 ### 6.3 DPO vs RLHF
 
@@ -174,6 +197,10 @@ $$\mathcal{L}_{\text{DPO}}(\pi_\theta) = -\mathbb{E}_{(x,y_w,y_l)}\left[\log \si
 | 遺忘（Catastrophic Forgetting）| 微調可能損害預訓練能力 |
 | 評估困難 | 「對齊」本身難以量化測量 |
 
+> [!tip] 🎯 白話舉例：Reward Hacking 像「上有政策下有對策」
+> 想像你給孩子的獎勵是「房間看起來乾淨就給零食」。孩子可能學會「把東西塞到床底下」而不是真正打掃——房間「看起來」乾淨，但實際上沒有。
+> 這就是 Reward Hacking：模型找到了「欺騙評分器」的捷徑。KL 懲罰、Constitutional AI 等技術都是為了防止這種「作弊」。
+
 ---
 
 ## 9. 重點論文彙整
@@ -185,15 +212,19 @@ $$\mathcal{L}_{\text{DPO}}(\pi_\theta) = -\mathbb{E}_{(x,y_w,y_l)}\left[\log \si
 | Constitutional AI | 2022 | [2212.08073](https://arxiv.org/abs/2212.08073) | AI Feedback 替代人工標注 |
 | DPO | 2023 | [2305.18290](https://arxiv.org/abs/2305.18290) | 無 RM 偏好學習，更穩定 |
 | Decision Transformer | 2021 | [2106.01345](https://arxiv.org/abs/2106.01345) | RL 轉化為序列建模 |
+| GRPO | 2024 | [2402.03300](https://arxiv.org/abs/2402.03300) | 無 Critic 的組相對優化 |
 
 ---
 
 ## 🔗 相關知識點
 
-- [[KP-03 - 損失函數]] — RLHF 中的 KL 懲罰損失
-- [[KP-06 - Attention 機制與 Transformer]] — LLM 是 RLHF 的基礎
-- [[KP-07 - 縮放法則與湧現能力]] — 大模型才能有效進行 RLHF
+- [[KP-03 - 損失函數]] — RLHF 中的 KL 懲罰損失、DPO 損失的數學推導
+- [[KP-06 - Attention 機制與 Transformer]] — LLM（Transformer Decoder）是 RLHF 的基礎架構
+- [[KP-07 - 縮放法則與湧現能力]] — 大模型才能有效進行 RLHF；CoT 是湧現能力的代表
+- [[KP-02 - 現代優化器]] — PPO 本身是策略優化器；AdamW 用於 SFT 與 DPO
+- [[KP-04 - 正則化技術]] — KL 懲罰是 RLHF 中的核心正則化手段
 
 ## 🔗 相關課程筆記
 
-- [[C3-W3 - Reinforcement Learning]] — MDP、Bellman、DQN 基礎
+- [[C3-W3 - Reinforcement Learning]] — MDP、Bellman、DQN 基礎（RLHF 的 RL 前身）
+- [[C2-W3 - Advice for Applying ML]] — 評估指標與模型診斷（對齊評估的概念前身）

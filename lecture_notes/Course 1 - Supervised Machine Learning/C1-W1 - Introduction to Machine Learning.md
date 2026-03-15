@@ -230,3 +230,5 @@ $$\text{每次 iteration 計算所有 } (x^{(i)}, y^{(i)}), \quad i = 1 \ldots m
 - [[C1-W2 - Regression with Multiple Input Variables]] — 延伸至多特徵線性回歸
 - [[C1-W3 - Classification]] — 分類問題與 Logistic Regression
 - [[C2-W1 - Neural Networks]] — 神經網路：更強大的非線性模型
+- [[KP-01 - 超參數與學習率]] — 學習率排程（Cosine Annealing、Warmup）與進階調參策略
+- [[KP-03 - 損失函數]] — MSE 之外的損失函數：Huber Loss、Cross-Entropy 等
