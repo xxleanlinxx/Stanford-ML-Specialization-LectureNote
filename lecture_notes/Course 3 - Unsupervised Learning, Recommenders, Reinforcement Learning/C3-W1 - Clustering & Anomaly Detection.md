@@ -186,6 +186,34 @@ J  │ ╲
 
 選擇能最佳化你真正關心的商業指標的 $K$。
 
+### 6.3 K-Means 應用：圖片壓縮
+
+> 📓 **來源：** C3_W1_KMeans_Assignment.ipynb
+
+K-Means 的一個經典應用是**圖片色彩壓縮**。原始 24-bit RGB 圖片中每個像素用 3 個 8-bit 值表示（紅、綠、藍），可表達約 1600 萬種顏色。透過 K-Means 將所有像素聚成 $K$ 群（例如 $K=16$），每個像素只需儲存其所屬群的索引：
+
+```python
+# 將圖片轉為 (m, 3) 矩陣，每列是一個像素的 RGB 值
+X_img = original_img.reshape(-1, 3)
+
+# 用 K-Means 找出 K=16 個代表色
+centroids, idx = run_kMeans(X_img, initial_centroids, max_iters=10)
+
+# 用最近的中心點顏色取代每個像素
+X_recovered = centroids[idx, :]
+compressed_img = X_recovered.reshape(original_img.shape)
+```
+
+**壓縮效果（128×128 圖片，$K=16$）：**
+
+| | 原始 | 壓縮後 |
+|--|------|--------|
+| **每像素位元** | 24 bits（8×3 RGB） | 4 bits（$\log_2 16$） |
+| **總位元** | $128 \times 128 \times 24 = 393{,}216$ | $16 \times 24 + 128 \times 128 \times 4 = 65{,}920$ |
+| **壓縮比** | — | **約 6 倍** |
+
+> 壓縮後的圖片保留了大部分視覺特徵，但因色彩數減少會出現些許壓縮偽影（compression artifacts）。
+
 ---
 
 ## Part 2：Anomaly Detection（異常偵測）

@@ -408,11 +408,34 @@ X_reduced = pca.transform(X_normalized)  # 從 n 維降到 2 維
 X_recovered = pca.inverse_transform(X_reduced)
 ```
 
-### 8.1 PCA 的應用
+### 8.1 PCA 用於探索性資料分析（EDA）
+
+> 📓 **來源：** C3_W2_PCA_Visualization_Examples.ipynb
+
+PCA 的一個強大應用是在**高維資料中發現隱藏結構**。即使只保留少量方差，降維後的視覺化也能揭示肉眼無法在原始空間中看到的模式：
+
+```python
+from sklearn.decomposition import PCA
+import pandas as pd
+
+# 假設 df 有 1000 個特徵、500 個樣本
+pca = PCA(n_components=2)
+X_pca = pca.fit_transform(df)
+
+print(sum(pca.explained_variance_ratio_))  # e.g., 0.146（僅保留 14.6% 方差）
+
+# 即便只保留 ~15% 方差，散佈圖仍可能顯示出清晰的群集結構
+plt.scatter(X_pca[:, 0], X_pca[:, 1])
+```
+
+**關鍵洞察：** 在一個 1000 維的資料集中，任意兩個特徵的散佈圖和相關性分析（最大相關 ~0.63）都無法揭示資料結構。但 PCA 降到 2D 後，即使只保留約 15% 的方差，仍能清楚看到 **8–10 個群集**。這說明 PCA 能捕捉到高維空間中人眼無法直接觀察的全局結構。
+
+### 8.2 PCA 的應用
 
 | 應用 | 說明 |
 |------|------|
 | 視覺化 | 將高維資料降到 2D/3D 後繪圖 |
+| 探索性分析 | 在高維資料中發現隱藏的群集結構 |
 | 資料壓縮 | 減少儲存空間 |
 | 去噪 | 丟棄低方差成分（雜訊）|
 | 加速訓練 | 減少特徵數，加快模型訓練 |
