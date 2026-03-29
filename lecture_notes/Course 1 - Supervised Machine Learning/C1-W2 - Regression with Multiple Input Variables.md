@@ -9,6 +9,10 @@ topics:
   - Gradient Descent Convergence
   - Feature Engineering
   - Polynomial Regression
+aliases:
+  - "Multiple Linear Regression"
+  - "多特徵回歸"
+  - "Feature Scaling"
 tags:
   - ml-specialization
   - course1
@@ -131,6 +135,11 @@ $$\frac{\partial J}{\partial b} = \frac{1}{m} \sum_{i=1}^{m} \left( f_{\vec{w},b
 
 > ⚠️ 所有參數必須**同步更新**（simultaneous update），不能先更新 $w_1$，再用新的 $w_1$ 計算 $w_2$ 的梯度。
 
+> [!info] 📖 延伸閱讀：現代優化器與學習率排程
+> 多特徵梯度下降在實務中常配合自適應學習率優化器（如 Adam）來加速收斂，並使用 Warmup + Cosine Decay 等排程策略。
+> - 優化器進化 → [[KP-02 - 現代優化器]]
+> - 學習率調整策略 → [[KP-01 - 超參數與學習率]]
+
 ---
 
 ## 4. Feature Scaling（特徵縮放）
@@ -167,6 +176,10 @@ $$x_j^{\text{z}} = \frac{x_j - \mu_j}{\sigma_j}$$
 結果均值為 0，標準差為 1（標準常態分布）。
 
 > **建議目標範圍：** $-1 \leq x_j \leq 1$，大致上 $-3 \leq x_j \leq 3$ 也可接受。特徵值域太大（如 $-100 \sim 100$）或太小（如 $0.0001 \sim 0.001$）都應該縮放。
+
+> [!info] 📖 延伸閱讀：特徵縮放的現代擴展
+> 在神經網路中，特徵縮放的思想被擴展為 **Batch Normalization**、**Layer Normalization** 和 **RMSNorm** 等技術，這些方法在訓練過程中動態正規化中間層的輸出，顯著提升訓練穩定性。
+> 詳見 [[KP-04 - 正則化技術#2. 現代正規化技術（Normalization）]]。
 
 ---
 
@@ -233,6 +246,8 @@ $$f(x) = w_1 x + w_2 \sqrt{x} + b$$
 ### 7.3 關鍵洞察
 
 多項式回歸的本質仍然是**多特徵線性回歸**，只是把 $x^2, x^3, \sqrt{x}$ 視為新特徵。
+
+> 💡 多項式次數越高越容易**過擬合（overfitting）**，需要配合**正則化**（詳見 [[C1-W3 - Classification#7. Regularization（正則化）]]）。如何系統性判斷模型是過擬合還是欠擬合，請參考 [[C2-W3 - Advice for Applying ML#3. Diagnosing Bias and Variance（診斷偏差與方差）]]。
 
 ---
 

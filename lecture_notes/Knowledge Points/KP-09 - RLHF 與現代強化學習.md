@@ -1,5 +1,11 @@
 ---
 title: "KP-09 RLHF 與現代強化學習"
+aliases:
+  - "RLHF"
+  - "強化學習"
+  - "Reinforcement Learning"
+  - "DPO"
+  - "GRPO"
 type: knowledge-point
 category: 強化學習
 tags:
@@ -33,6 +39,8 @@ graph LR
     DQN["Deep Q-Network<br/>（離散動作空間）<br/>Atari 遊戲"] --> PPO["PPO<br/>（連續動作空間）<br/>機器人控制"]
     PPO --> RLHF["RLHF<br/>（語言模型對齊）<br/>ChatGPT / InstructGPT"]
     RLHF --> DPO["DPO<br/>（免 RL 的偏好學習）<br/>更穩定"]
+    PPO --> GRPO["GRPO<br/>（無 Critic）<br/>DeepSeek-R1"]
+    GRPO --> R1ZERO["R1-Zero<br/>（跳過 SFT）<br/>Pure RL 推理"]
 ```
 
 ---
@@ -151,7 +159,7 @@ $$\mathcal{L}_{\text{DPO}}(\pi_\theta) = -\mathbb{E}_{(x,y_w,y_l)}\left[\log \si
 
 **DPO 的後續發展：**
 
-**GRPO（Group Relative Policy Optimization）：** DeepSeek 提出的替代方案，不需要 Critic 模型，透過組內相對排名來估計優勢函數，大幅降低訓練成本。
+**GRPO（Group Relative Policy Optimization）：** DeepSeek 提出的替代方案，不需要 Critic 模型，透過組內相對排名來估計優勢函數，大幅降低訓練成本。詳見下方 [[#7. GRPO 與 DeepSeek-R1（2025 突破）]]。
 
 > Shao, Z. et al. (2024). **DeepSeekMath: Pushing the Limits of Mathematical Reasoning in Open Language Models.** [arxiv:2402.03300](https://arxiv.org/abs/2402.03300)
 
@@ -167,19 +175,71 @@ $$\mathcal{L}_{\text{DPO}}(\pi_\theta) = -\mathbb{E}_{(x,y_w,y_l)}\left[\log \si
 
 ---
 
-## 7. RL 在 LLM 之外的 2020+ 進展
+## 7. GRPO 與 DeepSeek-R1（2025 突破）
 
-### 7.1 AlphaCode（程式合成）
+### 7.1 GRPO 核心機制
+
+**PPO 的問題：** 需要一個與 policy 同規模的 **Critic 模型**來估計優勢函數 $A_t$，記憶體與計算成本大約翻倍。
+
+**GRPO 的解決方案：** 對同一個 prompt 生成**一組回答**（group），用組內的**相對獎勵排名**來估計優勢函數，完全不需要 Critic：
+
+$$A_i = \frac{r_i - \text{mean}(\{r_1, ..., r_G\})}{\text{std}(\{r_1, ..., r_G\})}$$
+
+**計算成本降低 ~50%**（去掉 Critic 模型），同時保持穩定性。
+
+### 7.2 DeepSeek-R1-Zero：純 RL 訓練的突破
+
+**革命性發現：** DeepSeek-R1-Zero 完全跳過 SFT 階段，**直接對 base model 執行 GRPO**，就能浩現出推理能力：
+
+- 自發產生 **Chain-of-Thought** 推理鏈
+- 出現 **「aha moment」** —— 模型在推理過程中自我糾正錯誤
+- 在數學推理等任務上達到接近 OpenAI o1 的水準
+
+### 7.3 DeepSeek-R1：完整訓練流程
+
+```mermaid
+graph LR
+    BASE["DeepSeek-V3 Base"] --> COLD["Cold Start Data<br/>（少量高品質示範）"]
+    COLD --> RL1["RL Stage 1<br/>GRPO + 推理獎勵"]
+    RL1 --> REJECT["Rejection Sampling<br/>篩選高品質輸出"]
+    REJECT --> SFT["SFT<br/>提升可讀性"]
+    SFT --> RL2["RL Stage 2<br/>GRPO + 安全獎勵"]
+```
+
+**關鍵結果：**
+- 效果匹配 OpenAI o1-1217
+- 開源模型（671B MoE）+ 6 個蒸餞版本（1.5B~70B）
+- 證明了 **RL 可以從 base model 直接激發推理能力**，而非僅透過 SFT 模仿
+
+**論文來源：**
+> DeepSeek-AI (2025). **DeepSeek-R1: Incentivizing Reasoning Capability in LLMs via Reinforcement Learning.** [arxiv:2501.12948](https://arxiv.org/abs/2501.12948)
+
+### 7.4 GRPO vs PPO vs DPO 比較
+
+| | PPO | DPO | GRPO |
+|--|-----|-----|------|
+| 需要 Reward Model | ✅ | ❌ | 可選（rule-based 亦可）|
+| 需要 Critic | ✅（同規模）| ❌ | ❌ |
+| 訓練穩定性 | 低 | 高 | 中高 |
+| 計算成本 | 最高 | 最低 | 中等 |
+| 可激發推理 | ✅ | ❌ | ✅（DeepSeek-R1）|
+| 代表應用 | InstructGPT | Llama3, Zephyr | DeepSeek-R1, Kimi-k1.5 |
+
+---
+
+## 8. RL 在 LLM 之外的 2020+ 進展
+
+### 8.1 AlphaCode（程式合成）
 
 > Li, Y. et al. (2022). **Competition-Level Code Generation with AlphaCode.** *Science 2022.* [arxiv:2203.07814](https://arxiv.org/abs/2203.07814)
 
-### 7.2 AlphaFold 2（蛋白質結構預測）
+### 8.2 AlphaFold 2（蛋白質結構預測）
 
 > Jumper, J. et al. (2021). **Highly Accurate Protein Structure Prediction with AlphaFold.** *Nature 2021.*
 
 **雖非 RL，但體現了 ML 解決長期被認為「只有人類才能做到」問題的能力。**
 
-### 7.3 Offline RL / Decision Transformer
+### 8.3 Offline RL / Decision Transformer
 
 **核心思想：** 把 RL 問題轉化為序列預測問題，用 Transformer 直接從離線資料學習最優策略（無需環境互動）。
 
@@ -187,7 +247,7 @@ $$\mathcal{L}_{\text{DPO}}(\pi_\theta) = -\mathbb{E}_{(x,y_w,y_l)}\left[\log \si
 
 ---
 
-## 8. RLHF 的問題與挑戰
+## 9. RLHF 的問題與挑戰
 
 | 問題 | 說明 |
 |------|------|
@@ -203,7 +263,7 @@ $$\mathcal{L}_{\text{DPO}}(\pi_\theta) = -\mathbb{E}_{(x,y_w,y_l)}\left[\log \si
 
 ---
 
-## 9. 重點論文彙整
+## 10. 重點論文彙整
 
 | 論文 | 年份 | arxiv | 貢獻 |
 |------|------|-------|------|
@@ -213,6 +273,7 @@ $$\mathcal{L}_{\text{DPO}}(\pi_\theta) = -\mathbb{E}_{(x,y_w,y_l)}\left[\log \si
 | DPO | 2023 | [2305.18290](https://arxiv.org/abs/2305.18290) | 無 RM 偏好學習，更穩定 |
 | Decision Transformer | 2021 | [2106.01345](https://arxiv.org/abs/2106.01345) | RL 轉化為序列建模 |
 | GRPO | 2024 | [2402.03300](https://arxiv.org/abs/2402.03300) | 無 Critic 的組相對優化 |
+| DeepSeek-R1 | 2025 | [2501.12948](https://arxiv.org/abs/2501.12948) | 純 RL 激發推理，匹配 o1 |
 
 ---
 

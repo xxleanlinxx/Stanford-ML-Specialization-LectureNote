@@ -12,6 +12,11 @@ topics:
   - Tree Ensembles
   - Random Forest
   - XGBoost
+aliases:
+  - "Decision Trees"
+  - "決策樹"
+  - "Random Forest"
+  - "XGBoost"
 tags:
   - ml-specialization
   - course2
@@ -259,6 +264,10 @@ model.fit(X_train, y_train,
 predictions = model.predict(X_test)
 ```
 
+> [!info] 📖 延伸閱讀：XGBoost 的現代替代與表格資料最佳實踐
+> XGBoost 之後還有 **LightGBM**（更快、對高維稀疏特徵更優）和 **CatBoost**（原生支援類別特徵）。研究顯示在中小型表格資料上，GBDT 仍系統性優於深度學習。可配合 **SHAP** 做特徵重要性解釋，以及 **Optuna** 進行自動超參數搜尋。
+> 詳見 [[KP-11 - 表格資料與現代決策樹]]。
+
 ---
 
 ## 6. When to Use Decision Trees vs. Neural Networks？
@@ -299,6 +308,11 @@ graph LR
 - **Word2Vec（2013）：** 將詞彙映射到連續向量空間，語義相似的詞有相近的向量。例如 `King - Man + Woman ≈ Queen`，這讓 NLP 從離散符號走向連續表示。
 - **Attention Mechanism（2014–2015）：** 讓模型在翻譯時「注意」輸入句子的相關部分，大幅提升機器翻譯品質。
 - **Transformer（2017）：** 完全取代 RNN 架構，成為 NLP 的基礎。（詳見 [[KP-06 - Attention 機制與 Transformer]]）
+
+> [!info] 📖 延伸閱讀：Transformer 架構與自監督預訓練
+> Transformer 的發明弹底改變了 NLP 的研究範式。配合**自監督預訓練**（如 BERT 的 Masked LM、GPT 的自回歸生成），大型語言模型在少量標註資料上就能達到優異效果。
+> - Transformer 架構詳解 → [[KP-06 - Attention 機制與 Transformer]]
+> - 自監督預訓練範式 → [[KP-08 - 自監督與對比學習]]
 
 ### 7.3 對話核心洞察
 

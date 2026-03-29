@@ -61,8 +61,8 @@ graph TD
 | 文件 | 核心主題 | 關鍵論文（年份）|
 |------|---------|----------------|
 | [[KP-01 - 超參數與學習率]] | LR 排程、Cosine Annealing、Warmup、梯度裁剪、μP | Loshchilov 2017, Goyal 2017, Yang 2022 |
-| [[KP-02 - 現代優化器]] | AdamW、Lion、SAM、Sharpness-Aware | Loshchilov 2019, Chen 2023, Foret 2021 |
-| [[KP-04 - 正則化技術]] | LayerNorm、Pre-LN、RMSNorm、Mixup、CutMix、DropPath | Ba 2016, Xiong 2020, Zhang 2018, Yun 2019 |
+| [[KP-02 - 現代優化器]] | AdamW、Lion、SAM、Sophia、Schedule-Free、Muon、SPAM | Loshchilov 2019, Chen 2023, Foret 2021, Liu 2023, Defazio 2024, Jordan 2025, Huang 2025 |
+| [[KP-04 - 正則化技術]] | LayerNorm、Pre-LN、RMSNorm、Mixup、CutMix、DropPath、**DyT** | Ba 2016, Xiong 2020, Zhang 2018, Yun 2019, **Zhu 2025** |
 
 ### 📉 損失函數與訓練目標
 
@@ -75,25 +75,25 @@ graph TD
 | 文件 | 核心主題 | 關鍵論文（年份）|
 |------|---------|----------------|
 | [[KP-05 - 激活函數]] | GELU、SiLU/Swish、SwiGLU、Mish | Hendrycks 2016, Shazeer 2020 |
-| [[KP-06 - Attention 機制與 Transformer]] | Self-Attention、MHA、ViT、RoPE、ALiBi、Flash Attention、GQA | Vaswani 2017, Dosovitskiy 2021, Dao 2022, Su 2024 |
+| [[KP-06 - Attention 機制與 Transformer]] | Self-Attention、MHA、ViT、RoPE、Flash Attention、GQA、**MLA**、**NSA** | Vaswani 2017, Dosovitskiy 2021, Dao 2022, Su 2024, **DeepSeek 2024/2025** |
 
 ### 📈 縮放法則與新興能力
 
 | 文件 | 核心主題 | 關鍵論文（年份）|
 |------|---------|----------------|
-| [[KP-07 - 縮放法則與湧現能力]] | Kaplan 縮放法則、Chinchilla、湧現能力、CoT、Grokking | Kaplan 2020, Hoffmann 2022, Wei 2022, Power 2022 |
+| [[KP-07 - 縮放法則與湧現能力]] | Kaplan 縮放法則、Chinchilla、湧現能力、CoT、Grokking、**Test-time Scaling** | Kaplan 2020, Hoffmann 2022, Wei 2022, Power 2022, **Muennighoff 2025, Geiping 2025** |
 
 ### 🔍 自監督與對比學習
 
 | 文件 | 核心主題 | 關鍵論文（年份）|
 |------|---------|----------------|
-| [[KP-08 - 自監督與對比學習]] | SimCLR、MoCo、CLIP、DINO、MAE | Chen 2020, He 2020, Radford 2021, Caron 2021, He 2022 |
+| [[KP-08 - 自監督與對比學習]] | SimCLR、MoCo、CLIP、DINO、MAE、DINOv2、**SigLIP 2** | Chen 2020, He 2020, Radford 2021, Caron 2021, He 2022, Oquab 2023, **Tschannen 2025** |
 
 ### 🤝 對齊與強化學習
 
 | 文件 | 核心主題 | 關鍵論文（年份）|
 |------|---------|----------------|
-| [[KP-09 - RLHF 與現代強化學習]] | PPO、InstructGPT、Constitutional AI、DPO | Schulman 2017, Ouyang 2022, Bai 2022, Rafailov 2023 |
+| [[KP-09 - RLHF 與現代強化學習]] | PPO、InstructGPT、Constitutional AI、DPO、**GRPO**、**DeepSeek-R1** | Schulman 2017, Ouyang 2022, Bai 2022, Rafailov 2023, **Shao 2024, DeepSeek 2025** |
 
 ### 🛒 應用領域
 
@@ -129,7 +129,7 @@ graph TD
 |---------|-----------|
 | [[C3-W1 - Clustering & Anomaly Detection]] | [[KP-08 - 自監督與對比學習]]（SimCLR, MAE）|
 | [[C3-W2 - Recommender Systems & PCA]] | [[KP-10 - 現代推薦系統]]（序列推薦, LLM 推薦）、[[KP-08 - 自監督與對比學習]]（Embedding 與對比學習）、[[KP-03 - 損失函數]]（InfoNCE Loss）|
-| [[C3-W3 - Reinforcement Learning]] | [[KP-09 - RLHF 與現代強化學習]]（PPO, DPO, InstructGPT）|
+| [[C3-W3 - Reinforcement Learning]] | [[KP-09 - RLHF 與現代強化學習]]（PPO, DPO, InstructGPT, GRPO, DeepSeek-R1）|
 
 ---
 
@@ -177,6 +177,26 @@ graph TD
 | [2305.13245](https://arxiv.org/abs/2305.13245) | Ainslie et al. | GQA 分組查詢注意力 |
 | [2304.15004](https://arxiv.org/abs/2304.15004) | Schaeffer et al. | 湧現能力是否是假象？|
 | [2304.07193](https://arxiv.org/abs/2304.07193) | Oquab et al. | DINOv2 |
+| [2305.10601](https://arxiv.org/abs/2305.10601) | Liu et al. | Sophia 二階裁剪優化器 |
+
+### 2024 年
+
+| arxiv ID | 作者 | 標題摘要 |
+|----------|------|---------|
+| [2405.15682](https://arxiv.org/abs/2405.15682) | Defazio et al. | Schedule-Free AdamW |
+| [2402.03300](https://arxiv.org/abs/2402.03300) | Shao et al. | GRPO（DeepSeekMath）|
+| [2405.04434](https://arxiv.org/abs/2405.04434) | DeepSeek-AI | DeepSeek-V2（MLA）|
+
+### 2025 年
+
+| arxiv ID | 作者 | 標題摘要 |
+|----------|------|---------|
+| [2501.12948](https://arxiv.org/abs/2501.12948) | DeepSeek-AI | DeepSeek-R1 純 RL 推理 |
+| [2501.19393](https://arxiv.org/abs/2501.19393) | Muennighoff et al. | s1 Test-Time Scaling |
+| [2502.05171](https://arxiv.org/abs/2502.05171) | Geiping et al. | Latent Reasoning 潛在空間推理 |
+| [2502.11089](https://arxiv.org/abs/2502.11089) | Yuan et al. | NSA 原生稀疏注意力 |
+| [2502.14786](https://arxiv.org/abs/2502.14786) | Tschannen et al. | SigLIP 2 統一視覺語言編碼器 |
+| [2503.10622](https://arxiv.org/abs/2503.10622) | Zhu et al. | DyT 取代 Normalization |
 
 ---
 

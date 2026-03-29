@@ -9,6 +9,11 @@ topics:
   - Softmax
   - Advanced Optimization
   - Backpropagation
+aliases:
+  - "NN Training"
+  - "神經網路訓練"
+  - "Backpropagation"
+  - "Adam Optimizer"
 tags:
   - ml-specialization
   - course2
@@ -176,6 +181,10 @@ graph TD
 | 輸出層（多類別分類） | Softmax | 輸出多類機率分布 |
 | 輸出層（回歸） | Linear | 無限制範圍 |
 
+> [!info] 📖 延伸閱讀：現代激活函數的演進
+> ReLU 是很好的默認選擇，但現代大型模型（如 GPT、LLaMA）已轉向使用 **GELU**、**SwiGLU** 等更平滑的激活函數，它們在大規模訓練中表現更穩定。
+> 詳見 [[KP-05 - 激活函數]]。
+
 ---
 
 ## 3. Multiclass Classification（多類別分類）
@@ -312,6 +321,11 @@ model.compile(
 )
 ```
 
+> [!info] 📖 延伸閱讀：Adam 的完整推導與後續發展
+> Adam 結合了 Momentum 和 RMSProp，但其 L2 正則化實作存在問題。**AdamW** 將權重衰減與自適應學習率解耦，是目前的標準優化器。更新的 **Lion** 優化器透過程式搜尋發現，僅用符號更新，記憶體佔用更少。
+> - Adam 完整數學 → [[KP-02 - 現代優化器]]
+> - 學習率排程與 Warmup → [[KP-01 - 超參數與學習率]]
+
 ---
 
 ## 5. Backpropagation（反向傳播）
@@ -358,6 +372,11 @@ $$\frac{\partial J}{\partial Z^{[l]}} = (W^{[l+1]})^T \cdot \frac{\partial J}{\p
 - 計算所有 $n$ 個參數的梯度，時間複雜度僅為前向傳播的約 2 倍
 
 > **實務上：** TensorFlow / PyTorch 用 `AutoDiff`（自動微分）自動計算梯度，不需手動推導。
+
+> [!info] 📖 延伸閱讀：訓練穩定性與正規化
+> 反向傳播的梯度在深層網路中容易消失或爆炸。現代訓練透過 **Layer Normalization**、**Pre-LN Transformer** 架構來穩定梯度流，並使用**梯度裁剪（Gradient Clipping）**防止梯度爆炸。
+> - 正規化技術 → [[KP-04 - 正則化技術#2. 現代正規化技術（Normalization）]]
+> - 梯度裁剪 → [[KP-01 - 超參數與學習率#4. 梯度裁剪（Gradient Clipping）]]
 
 ---
 

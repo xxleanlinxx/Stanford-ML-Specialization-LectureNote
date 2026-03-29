@@ -11,6 +11,11 @@ topics:
   - Continuous State Spaces
   - Deep Q-Network (DQN)
   - Algorithm Refinements
+aliases:
+  - "Reinforcement Learning"
+  - "強化學習"
+  - "DQN"
+  - "Q-Learning"
 tags:
   - ml-specialization
   - course3
@@ -319,7 +324,7 @@ $$\theta^- \leftarrow \tau \theta + (1 - \tau) \theta^-$$
 
 ### 10.4 Improved Neural Network Architecture
 
-**更高效的網路：** 不是對每個 $(s, a)$ 對分別計算 $Q(s, a)$，而是一次性輸出所有動作的 $Q$ 值：
+**更高效的網路：** DQN 的核心就是用神經網路（參見 [[C2-W1 - Neural Networks#2. Neural Network Model（神經網路模型）]]）來近似 Q 函數。不是對每個 $(s, a)$ 對分別計算 $Q(s, a)$，而是一次性輸出所有動作的 $Q$ 值：
 
 ```
 Input: s = [x, y, ẋ, ẏ, θ, θ̇, l₁, l₂]
@@ -400,6 +405,10 @@ For episode = 1, ..., N:
 - 獎勵函數設計困難（Reward Shaping）
 
 > **Andrew Ng 的觀點：** RL 在模擬環境中效果很好（遊戲），但在真實世界應用中仍有很多未解的挑戰。目前大多數商業 ML 應用仍以監督學習為主。
+
+> [!info] 📖 延伸閱讀：RL 在 LLM 對齊中的崛新應用
+> RL 最重大的現代應用之一是 **RLHF（Reinforcement Learning from Human Feedback）**——用人類偏好作為獎勵信號，對齊大型語言模型的輸出。**PPO** 是 RLHF 中最常用的策略梯度方法，而 **DPO** 則繞過明確的 RL 訓練，直接從偏好資料中學習。
+> 詳見 [[KP-09 - RLHF 與現代強化學習]]。
 
 ---
 

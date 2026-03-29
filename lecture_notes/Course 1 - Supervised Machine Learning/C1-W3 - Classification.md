@@ -9,6 +9,10 @@ topics:
   - Cost Function for Logistic Regression
   - Overfitting & Underfitting
   - Regularization
+aliases:
+  - "Logistic Regression"
+  - "邏輯回歸"
+  - "Regularization Basics"
 tags:
   - ml-specialization
   - course1
@@ -90,6 +94,10 @@ g(z)
 - $g(z) \to 0$ 當 $z \to -\infty$
 - $g(0) = 0.5$
 
+> [!info] 📖 延伸閱讀：Sigmoid 的局限與現代替代
+> Sigmoid 在深層網路中容易導致**梯度消失**（當 $|z|$ 很大時梯度趨近 0），因此現代神經網路大多使用 ReLU、GELU、SwiGLU 等激活函數。
+> 詳見 [[KP-05 - 激活函數]]。
+
 ### 2.2 Logistic Regression 模型
 
 $$f_{\vec{w},b}(\vec{x}) = g(\vec{w} \cdot \vec{x} + b) = \frac{1}{1 + e^{-(\vec{w} \cdot \vec{x} + b)}}$$
@@ -99,6 +107,8 @@ $$f_{\vec{w},b}(\vec{x}) = g(\vec{w} \cdot \vec{x} + b) = \frac{1}{1 + e^{-(\vec
 即模型輸出的是「給定特徵 $\vec{x}$，標籤為 1 的**機率**」。
 
 **例子：** 若 $f(\vec{x}) = 0.7$，表示這顆腫瘤有 70% 機率是惡性。
+
+> 💡 Logistic Regression 本質上就是一個**單神經元網路**（用 Sigmoid 激活）。在 [[C2-W1 - Neural Networks#1.2 Demand Prediction 範例（需求預測）]] 中會看到它如何擴展成多層神經網路。
 
 ### 2.3 預測規則
 
@@ -169,6 +179,10 @@ $$J(\vec{w}, b) = \frac{1}{m} \sum_{i=1}^{m} L\left(f(\vec{x}^{(i)}), y^{(i)}\ri
 $$= -\frac{1}{m} \sum_{i=1}^{m} \left[ y^{(i)} \log(f(\vec{x}^{(i)})) + (1-y^{(i)}) \log(1-f(\vec{x}^{(i)})) \right]$$
 
 > 此成本函數來自**最大似然估計（Maximum Likelihood Estimation）**，是凸函數，梯度下降可以找到全局最小值。
+
+> [!info] 📖 延伸閱讀：Cross-Entropy 損失的進階變體
+> Logistic Loss 本質上就是 **Binary Cross-Entropy**。在現代訓練中，常用的進階技巧包括 **Label Smoothing**（抑制過度自信）、**Focal Loss**（處理類別不平衡）、以及 **InfoNCE**（對比學習）。
+> 詳見 [[KP-03 - 損失函數]]。
 
 ---
 
@@ -249,6 +263,11 @@ $$w_j \leftarrow w_j - \alpha \left[ \frac{1}{m} \sum_{i=1}^{m} \left(f(\vec{x}^
 $$w_j \leftarrow w_j \left(1 - \alpha \frac{\lambda}{m}\right) - \alpha \frac{1}{m} \sum_{i=1}^{m} \left(f(\vec{x}^{(i)}) - y^{(i)}\right) x_j^{(i)}$$
 
 > 注意 $\left(1 - \alpha \frac{\lambda}{m}\right) < 1$，每次迭代 $w_j$ 都會被稍微**縮小（shrink）**，這就是正則化的效果。
+
+> [!info] 📖 延伸閱讀：正則化的現代擴展
+> L2 正則化只是最基礎的形式。現代深度學習中，**Dropout**、**Mixup**、**DropPath** 等技術提供了更強大的正則化效果。此外，AdamW 將 L2 正則化與自適應學習率解耦，是目前的標準做法。
+> - 正則化全景 → [[KP-04 - 正則化技術]]
+> - 正則化對 Bias/Variance 的影響 → [[C2-W3 - Advice for Applying ML#3.2 Regularization 對 Bias/Variance 的影響]]
 
 ### 7.4 Regularized Gradient Descent（邏輯回歸）
 

@@ -12,6 +12,11 @@ topics:
   - Error Analysis
   - Transfer Learning
   - Skewed Datasets & Precision/Recall
+aliases:
+  - "Bias and Variance"
+  - "ML Development Process"
+  - "Transfer Learning"
+  - "F1 Score"
 tags:
   - ml-specialization
   - course2
@@ -201,6 +206,11 @@ graph TD
 
 > **原則：** 更大的神經網路（配合正則化）幾乎不會比小型網路更差。但訓練成本更高。
 
+> [!info] 📖 延伸閱讀：縮放法則與模型規模的影響
+> 「更大的網路通常更好」這個觀察被近年的**縮放法則（Scaling Laws）**研究正式化——模型性能與參數量、資料量、算力呈幂律關係。而在特定規模下，模型會「湧現」出新能力（如思維鏈推理）。同時，現代正則化技術（Dropout、Mixup、DropPath）讓大型網路的過擬合風險更可控。
+> - 縮放法則與湧現能力 → [[KP-07 - 縮放法則與湧現能力]]
+> - 現代正則化技術 → [[KP-04 - 正則化技術]]
+
 ---
 
 ## 4. ML Development Process（ML 開發流程）
@@ -245,6 +255,8 @@ graph LR
 **方法三：Data Synthesis（資料合成）**
 - 用程式生成新資料（如 OCR：用不同字型生成文字圖片）
 
+> 💡 當標籤資料不足時，也可考慮用**無監督方法**先探索資料結構（如 [[C3-W1 - Clustering & Anomaly Detection#Part 1：Clustering（聚類）]] 中的 K-Means），或透過**自監督預訓練**從無標籤資料中學習表徵。
+
 ### 4.4 Transfer Learning（遷移學習）
 
 **白話解釋：** 把在大型任務上學到的知識，遷移到資料較少的小任務。就像你先學會騎自行車，再學機車就更快。
@@ -267,6 +279,11 @@ graph TB
 | **Fine-tune 全網路** | 目標資料集中等大小 | 用預訓練參數初始化，然後整體訓練 |
 
 > **重要：** Pre-training 的輸入類型必須與目標任務相同（如同為圖片）。
+
+> [!info] 📖 延伸閱讀：Transfer Learning 的現代形式
+> 課程介紹的是監督式預訓練 + Fine-tune。現代前沿已發展出更強大的**自監督預訓練**（如 BERT 的過罩語言模型、MAE 的過罩圖像學習）和**對比學習**（如 SimCLR、CLIP），讓模型從無標籤資料中學習泛用表示。
+> - 自監督與對比學習 → [[KP-08 - 自監督與對比學習]]
+> - CLIP 等視覺語言模型 → [[KP-08 - 自監督與對比學習#4. CLIP（Contrastive Language-Image Pre-training）]]
 
 ### 4.5 Full Cycle of an ML Project（完整 ML 專案週期）
 
@@ -343,6 +360,8 @@ $$\hat{y} = \begin{cases} 1 & \text{if } f(\vec{x}) \geq \text{threshold} \\ 0 &
 $$F_1 = \frac{2 \cdot \text{Precision} \cdot \text{Recall}}{\text{Precision} + \text{Recall}}$$
 
 這是**調和平均數（Harmonic Mean）**，對極端值更敏感——若其中一個很低，$F_1$ 也會低。
+
+> 💡 Precision/Recall/F1 在**異常偵測**中尤為重要，因為異常樣本極少，Accuracy 完全失效。詳見 [[C3-W1 - Clustering & Anomaly Detection#10. Developing & Evaluating an Anomaly Detection System]]。
 
 ---
 

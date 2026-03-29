@@ -8,6 +8,11 @@ topics:
   - Mean Normalization
   - Finding Related Items
   - Principal Component Analysis
+aliases:
+  - "Recommender Systems"
+  - "推薦系統"
+  - "Collaborative Filtering"
+  - "PCA"
 tags:
   - ml-specialization
   - course3
@@ -127,7 +132,7 @@ $$J\left(\{w^{(j)}\}, \{b^{(j)}\}, \{x^{(i)}\}\right) = \frac{1}{2} \sum_{(i,j):
 
 $$L = -y^{(i,j)} \log f(\vec{w}^{(j)} \cdot \vec{x}^{(i)} + b^{(j)}) - (1-y^{(i,j)}) \log(1 - f(\ldots))$$
 
-其中 $f = \text{sigmoid}$。
+其中 $f = \text{sigmoid}$。這裡的 Logistic Loss 與 [[C1-W3 - Classification#4. Cost Function for Logistic Regression（損失函數）]] 中的損失函數形式完全相同。
 
 ---
 
@@ -173,6 +178,11 @@ for iter in range(iterations):
 $$\text{相似度} = \|\vec{x}^{(k)} - \vec{x}^{(i)}\|^2$$
 
 選擇距離最小的 $k$ 部電影推薦給使用者。
+
+> [!info] 📖 延伸閱讀：Embedding 學習與對比損失
+> 協同過濾學到的特徵向量本質上是一種 **Embedding**。現代推薦系統常用 **對比學習**（如 InfoNCE Loss）來訓練更高品質的 Embedding，使得相似物品在向量空間中更接近、不相似的更遠離。
+> - 對比學習與 InfoNCE → [[KP-08 - 自監督與對比學習]]
+> - InfoNCE Loss 詳解 → [[KP-03 - 損失函數#5. InfoNCE Loss]]
 
 ---
 
@@ -235,6 +245,10 @@ graph LR
 
 - **Retrieval：** 用 Approximate Nearest Neighbor 快速找出與使用者 embedding 相近的商品
 - **Ranking：** 對候選商品用完整模型精確排序
+
+> [!info] 📖 延伸閱讀：現代推薦系統架構
+> 課程介紹的 Two-Tower + Retrieval/Ranking 是工業級推薦系統的基礎架構。現代發展包括 **序列推薦**（SASRec、BERT4Rec）考慮用戶行為序列，**DLRM** 處理大規模稀疏特徵，以及 **LLM-based** 推薦（用大型語言模型理解用戶意圖）。
+> 詳見 [[KP-10 - 現代推薦系統]]。
 
 ### 5.3 TensorFlow Implementation of Content-Based Filtering
 
@@ -355,6 +369,8 @@ x2 │    *  *
 ### 7.1 完整步驟
 
 **Step 1：特徵標準化（均值歸零，方差歸一）**
+
+此步驟與 [[C1-W2 - Regression with Multiple Input Variables#4.4 Z-score Normalization（Z 分數標準化）]] 完全相同。
 
 $$x_j \leftarrow \frac{x_j - \mu_j}{\sigma_j}$$
 

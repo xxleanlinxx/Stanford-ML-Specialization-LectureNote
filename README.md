@@ -3,14 +3,15 @@
 [![Course](https://img.shields.io/badge/Coursera-DeepLearning.AI-0056D2?style=flat&logo=coursera)](https://www.coursera.org/specializations/machine-learning-introduction)
 [![Instructor](https://img.shields.io/badge/Instructor-Andrew%20Ng-red?style=flat)](https://www.andrewng.org/)
 [![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
+[![Last Updated](https://img.shields.io/badge/Last%20Updated-2025.03-blue?style=flat)]()
 
-> Comprehensive lecture notes for the Stanford Machine Learning Specialization by Andrew Ng on Coursera (DeepLearning.AI)
+> Comprehensive lecture notes for the Stanford Machine Learning Specialization by Andrew Ng on Coursera (DeepLearning.AI), extended with **post-2020 frontier research** (up to 2025).
 
 ## 📖 About
 
 This repository contains detailed lecture notes covering all three courses of the Stanford Machine Learning Specialization. The notes are structured in Markdown format and optimized for use with [Obsidian](https://obsidian.md/), featuring extensive cross-references and a comprehensive knowledge graph.
 
-**Total Duration**: 10 Weeks | **3 Courses** | **10 Weekly Modules**
+**Total Duration**: 10 Weeks | **3 Courses** | **10 Weekly Modules** | **11 Knowledge Point Deep-Dives**
 
 ## 🎯 Course Overview
 
@@ -128,10 +129,12 @@ Simply browse the markdown files in the `lecture_notes/` directory. Note that so
 
 The notes are organized with extensive cross-references following the Map of Content (MOC) methodology:
 
-- **Master Index**: `ML Specialization - Master Index.md` - Complete course overview with Mermaid diagram
-- **Course Indexes**: Each course has its own index with weekly breakdown
-- **Knowledge Points**: Supplementary deep-dive documents on modern ML concepts
-- **Cross-References**: Internal links connect related concepts across courses
+- **Master Index**: `ML Specialization - Master Index.md` — Complete course overview with Mermaid diagram & KP summary table
+- **Course Indexes**: Each course has its own index with weekly breakdown and 延伸知識點 links
+- **Knowledge Points (KP)**: 11 deep-dive documents bridging course content with 2020–2025 frontier research
+- **KP-Index**: `KP-Index - 知識點總索引.md` — Full knowledge point taxonomy with arxiv paper quick-reference (2020–2025)
+- **Cross-References**: Obsidian `[[WikiLinks]]` connect related concepts across courses and KP notes
+- **Frontmatter**: All KP files include `aliases` for flexible Obsidian search & graph filtering
 
 ## 📊 Key Algorithms Covered
 
@@ -166,11 +169,31 @@ The notes are organized with extensive cross-references following the Map of Con
 - Regularization effects on Bias/Variance
 - Dropout & Early Stopping
 
-### Modern Extensions
-- Attention Mechanisms & Transformers
-- Self-Supervised Learning
-- RLHF (Reinforcement Learning from Human Feedback)
-- Scaling Laws & Emergent Abilities
+### Modern Extensions (Post-2020 → 2025)
+- Attention Mechanisms & Transformers (MHA → GQA → **MLA** → **NSA**)
+- Self-Supervised & Contrastive Learning (SimCLR, CLIP, MAE, DINO → **SigLIP 2**)
+- RLHF & Alignment (PPO, DPO → **GRPO**, **DeepSeek-R1**)
+- Scaling Laws & Emergent Abilities (Chinchilla → **Test-time Scaling**, **Latent Reasoning**)
+- Modern Optimizers (AdamW, Lion → **Sophia**, **Muon**, **SPAM**)
+- Normalization Alternatives (**DyT** — Dynamic Tanh replacing LayerNorm)
+
+## 📚 Knowledge Points — Post-2020 Research Extensions
+
+Each Knowledge Point (KP) note supplements the course with rigorously cited research papers (primarily arxiv). **Bold** items denote 2024–2025 additions.
+
+| KP | Topic | Key Concepts | 2024–2025 Additions |
+|----|-------|-------------|--------------------|
+| KP-01 | Hyperparameters & Learning Rate | Warmup, Cosine Annealing, WSD, μP | — |
+| KP-02 | Modern Optimizers | AdamW, Lion, SAM | **Sophia, Schedule-Free, Muon, SPAM** |
+| KP-03 | Loss Functions | Label Smoothing, Focal Loss, InfoNCE | — |
+| KP-04 | Regularization | LayerNorm, RMSNorm, Mixup, CutMix | **DyT (replacing Normalization)** |
+| KP-05 | Activation Functions | GELU, SwiGLU, Mish | — |
+| KP-06 | Attention & Transformer | MHA, RoPE, Flash Attention, GQA | **MLA, NSA, DeepSeek-V3** |
+| KP-07 | Scaling Laws & Emergence | Kaplan, Chinchilla, CoT, Grokking | **Test-time Scaling, s1, Latent Reasoning** |
+| KP-08 | Self-Supervised & Contrastive Learning | SimCLR, CLIP, DINO, MAE | **SigLIP 2** |
+| KP-09 | RLHF & Modern RL | PPO, DPO, Constitutional AI | **GRPO, DeepSeek-R1** |
+| KP-10 | Modern Recommender Systems | Sequential Rec, DLRM, LLM-Rec | — |
+| KP-11 | Tabular Data & Modern Trees | LightGBM, CatBoost, TabNet, SHAP | — |
 
 ## 🛠️ Technical Stack Mentioned
 
@@ -182,11 +205,12 @@ The notes are organized with extensive cross-references following the Map of Con
 ## 📝 Note-Taking Methodology
 
 These notes follow best practices for technical learning:
-- **Progressive Disclosure**: Start with intuition, then dive into mathematics
-- **Cross-References**: Connect related concepts across courses
+- **Progressive Disclosure**: Start with intuition (白話舉例), then dive into mathematics
+- **Cross-References**: Obsidian `[[WikiLinks]]` connect related concepts across courses and KP notes
 - **Code Examples**: Include practical implementation notes
-- **Visual Aids**: Mermaid diagrams for concept relationships
-- **Knowledge Points**: Supplementary documents bridging course content with modern research
+- **Visual Aids**: Mermaid diagrams for evolution timelines, architecture comparisons, and concept relationships
+- **Knowledge Points**: 11 supplementary documents bridging course content with 2020–2025 frontier research, each with paper tables and arxiv citations
+- **Frontmatter Metadata**: Unified `title`, `aliases`, `type`, `category`, `tags`, `related_course_notes`, `related_kp` across all KP files
 
 ## 🤝 Contributing
 

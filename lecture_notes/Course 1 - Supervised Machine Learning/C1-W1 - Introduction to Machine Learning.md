@@ -9,6 +9,10 @@ topics:
   - Linear Regression
   - Cost Function
   - Gradient Descent
+aliases:
+  - "ML Introduction"
+  - "Linear Regression Basics"
+  - "梯度下降入門"
 tags:
   - ml-specialization
   - course1
@@ -162,6 +166,9 @@ $$J(w, b) = \frac{1}{2m} \sum_{i=1}^{m} \left( \hat{y}^{(i)} - y^{(i)} \right)^2
 > **目標：** 找到使 $J(w, b)$ 最小的 $w$ 和 $b$
 > $$\min_{w,b} J(w,b)$$
 
+> [!info] 📖 延伸閱讀：損失函數的現代發展
+> MSE 是最基礎的損失函數，但在不同任務中有更適合的選擇（如 Huber Loss 對異常值更魯棒、Cross-Entropy 用於分類）。詳見 [[KP-03 - 損失函數]]。
+
 ---
 
 ## 6. Gradient Descent（梯度下降）
@@ -201,6 +208,11 @@ graph LR
 | $\alpha$ 太大 | 可能 overshoot，甚至發散 |
 | $\alpha$ 恰當 | 有效、穩定地收斂 |
 
+> [!info] 📖 延伸閱讀：學習率排程與現代優化器
+> 課程中學習率 $\alpha$ 是固定值，但現代訓練通常使用**動態學習率排程**（如 Cosine Annealing、Warmup）來加速收斂並提升泛化性能。此外，Adam、AdamW 等優化器自動調整每個參數的步長，大幅減少手動調參需求。
+> - 學習率排程 → [[KP-01 - 超參數與學習率]]
+> - 現代優化器 → [[KP-02 - 現代優化器]]
+
 ### 6.5 收斂條件
 
 - 當梯度接近 0 時（$\frac{\partial J}{\partial w} \approx 0$，$\frac{\partial J}{\partial b} \approx 0$），$w$ 和 $b$ 幾乎不再變動
@@ -208,7 +220,7 @@ graph LR
 
 ### 6.6 Batch Gradient Descent
 
-每次更新都使用**全部** $m$ 筆訓練資料計算梯度。這就是標準的「Batch Gradient Descent」。
+每次更新都使用**全部** $m$ 筆訓練資料計算梯度。這就是標準的「Batch Gradient Descent」。在 [[C2-W2 - Neural Network Training#4. Advanced Optimization（Adam Optimizer）]] 中，會介紹更高效的 **Adam Optimizer**，它為每個參數自適應調整學習率。
 
 $$\text{每次 iteration 計算所有 } (x^{(i)}, y^{(i)}), \quad i = 1 \ldots m$$
 

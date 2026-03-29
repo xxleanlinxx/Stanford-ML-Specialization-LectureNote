@@ -9,6 +9,10 @@ topics:
   - Forward Propagation
   - Vectorization in Neural Networks
   - Matrix Multiplication
+aliases:
+  - "Neural Networks Basics"
+  - "神經網路入門"
+  - "Forward Propagation"
 tags:
   - ml-specialization
   - course2
@@ -101,6 +105,10 @@ graph LR
 
 神經網路**自動學習**哪些中間特徵（affordability, quality, awareness）對預測有用，不需要人工定義。
 
+> [!info] 📖 延伸閱讀：從全連接層到現代架構
+> 本節介紹的是全連接神經網路（Dense/MLP）。現代深度學習已發展出更強大的架構，特別是 **Transformer**，它透過 **Self-Attention** 機制讓每個神經元能「關注」輸入的任意位置，成為 NLP、CV 等領域的主流架構。
+> 詳見 [[KP-06 - Attention 機制與 Transformer]]。
+
 ### 1.3 Image Recognition 範例
 
 - 一張 $1000 \times 1000$ 的灰階圖片 = 100萬個像素值 = 100萬維度輸入向量 $\vec{x}$
@@ -135,6 +143,10 @@ $$z_j^{[l]} = \vec{w}_j^{[l]} \cdot \vec{a}^{[l-1]} + b_j^{[l]}$$
 $$a_j^{[l]} = g(z_j^{[l]})$$
 
 其中 $g$ 為激活函數（本週先用 Sigmoid）。
+
+> [!info] 📖 延伸閱讀：激活函數的現代進化
+> 課程此處使用 Sigmoid 作為激活函數，但在實務中 Sigmoid 已被 **ReLU**（隱藏層首選）及更新的 **GELU**、**SwiGLU** 取代，這些激活函數能有效避免梯度消失問題。下週（[[C2-W2 - Neural Network Training#2. Activation Functions（激活函數）]]）將詳細討論激活函數的選擇。
+> 現代激活函數全景 → [[KP-05 - 激活函數]]。
 
 ### 2.3 架構示例（4層網路）
 
@@ -315,6 +327,10 @@ $$C_{m \times p} = A_{m \times n} \cdot B_{n \times p}$$
 
 **腦皮質可塑性（Cortical Plasticity）：** 大腦不同區域可以學習執行不同任務（視覺皮質學習聽覺、觸覺），暗示可能存在通用的學習機制。
 
+> [!info] 📖 延伸閱讀：縮放法則與通用智慧
+> Andrew Ng 對 AGI 的討論與近年「縮放法則（Scaling Laws）」研究密切相關——研究表明模型性能與參數量、資料量、算力呈可預測的幂律關係，並且在特定規模下會「湧現」出新能力。
+> 詳見 [[KP-07 - 縮放法則與湧現能力]]。
+
 ---
 
 ## 7. 重點總結
@@ -335,3 +351,4 @@ $$C_{m \times p} = A_{m \times n} \cdot B_{n \times p}$$
 - [[C2-W3 - Advice for Applying ML]] — 如何診斷並改進神經網路
 - [[KP-06 - Attention 機制與 Transformer]] — 從基礎神經網路到 Transformer 架構的演進
 - [[KP-04 - 正則化技術]] — BatchNorm、LayerNorm 等現代神經網路必備技術
+- [[C2-W4 - Decision Trees#6. When to Use Decision Trees vs. Neural Networks？]] — 神經網路 vs 決策樹的適用場景比較

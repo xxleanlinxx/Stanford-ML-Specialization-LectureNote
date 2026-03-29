@@ -142,5 +142,20 @@ graph TD
 ## 📎 Post-2020 學術前沿補充
 
 > 以下知識點筆記補充了課程未涵蓋的 2020 年後前沿研究，每篇均含嚴謹的學術文獻來源。
+> **2025 更新：** 已新增 DeepSeek-R1、MLA/NSA、Test-time Scaling、DyT、SigLIP 2 等最新研究。
+
+| 知識點 | 核心涵蓋 | 2024-2025 新增 |
+|--------|---------|---------------|
+| [[KP-01 - 超參數與學習率]] | Warmup、Cosine、WSD、μP | — |
+| [[KP-02 - 現代優化器]] | AdamW、Lion、SAM | Sophia、Schedule-Free、Muon、SPAM |
+| [[KP-03 - 損失函數]] | Label Smoothing、Focal、InfoNCE | — |
+| [[KP-04 - 正則化技術]] | LayerNorm、RMSNorm、Mixup | **DyT**（取代 Normalization）|
+| [[KP-05 - 激活函數]] | GELU、SwiGLU、Mish | — |
+| [[KP-06 - Attention 機制與 Transformer]] | MHA、RoPE、Flash Attention、GQA | **MLA**、**NSA**、DeepSeek-V3 |
+| [[KP-07 - 縮放法則與湧現能力]] | Kaplan、Chinchilla、CoT、Grokking | **Test-time Scaling**、s1、Latent Reasoning |
+| [[KP-08 - 自監督與對比學習]] | SimCLR、CLIP、DINO、MAE | **SigLIP 2**（統一訓練配方）|
+| [[KP-09 - RLHF 與現代強化學習]] | PPO、DPO、Constitutional AI | **GRPO**、**DeepSeek-R1** |
+| [[KP-10 - 現代推薦系統]] | 序列推薦、DLRM、LLM 推薦 | — |
+| [[KP-11 - 表格資料與現代決策樹]] | LightGBM、CatBoost、TabNet | — |
 
 → [[KP-Index - 知識點總索引]] — 完整知識點體系架構與課程對應關係

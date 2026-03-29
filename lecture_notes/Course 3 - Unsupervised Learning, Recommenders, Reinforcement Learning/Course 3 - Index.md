@@ -66,7 +66,20 @@ $$\theta^- \leftarrow \tau\theta + (1-\tau)\theta^-$$
 
 ---
 
-## 🔗 前往其他課程
+## � 延伸知識點（Post-2020 前沿補充）
+
+| 課程主題 | 延伸知識點 |
+|---------|-----------|
+| K-Means / 聚類 | [[KP-08 - 自監督與對比學習]] — SimCLR、DINO、對比學習的表徵學習 |
+| 推薦系統 | [[KP-10 - 現代推薦系統]] — 序列推薦、LLM 推薦、CLIP Embedding |
+| PCA / Embedding | [[KP-03 - 損失函數]] — InfoNCE、對比損失在 Embedding 學習的角色 |
+| 強化學習 (DQN) | [[KP-09 - RLHF 與現代強化學習]] — PPO、DPO、GRPO、DeepSeek-R1 |
+
+→ [[KP-Index - 知識點總索引]] — 完整知識點體系
+
+---
+
+## �🔗 前往其他課程
 
 - [[Course 1 - Index]] — Supervised Machine Learning
 - [[Course 2 - Index]] — Advanced Learning Algorithms

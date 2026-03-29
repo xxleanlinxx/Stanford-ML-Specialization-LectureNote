@@ -1,5 +1,10 @@
 ---
 title: "KP-06 Attention 機制與 Transformer"
+aliases:
+  - "Attention"
+  - "Transformer"
+  - "Self-Attention"
+  - "Multi-Head Attention"
 type: knowledge-point
 category: 神經網路架構
 tags:
@@ -230,6 +235,33 @@ $$\mathcal{L} = \mathcal{L}_{\text{MLM}} + \mathcal{L}_{\text{NSP}}$$
 > MHA 中每個注意力頭都有自己的 K/V（像每個人都帶自己的筆記本）。
 > GQA 讓幾個頭**共用同一本筆記**（共享 K/V）——節省了存放筆記本的空間（KV Cache），速度更快，但參考的資訊稍微減少。MQA 則是所有人共用**同一本**，程度最極端。
 
+### 7.3 Multi-head Latent Attention（MLA）—— DeepSeek 的 KV Cache 壓縮
+
+GQA 透過減少 KV 頭數來縮小 KV Cache，但犧牲了表達力。DeepSeek-V2 提出 **MLA**，用**低秩壓縮**將 Key-Value 射影到一個潛在向量，推理時僅需快取該潛在向量：
+
+$$c_t^{KV} = W^{DKV} x_t \quad (\text{latent vector, 維度} \ll d_{\text{model}})$$
+$$K_t = W^{UK} c_t^{KV}, \quad V_t = W^{UV} c_t^{KV}$$
+
+| 方案 | KV Cache 大小 | 效果 |
+|------|---------------|------|
+| MHA | $2 \times n_h \times d_h$ | 最佳 |
+| GQA | $2 \times n_g \times d_h$ | 稍降 |
+| MLA | $d_c$（潛在維度）| **匹配或超越 MHA** |
+
+**關鍵優勢：** MLA 的 KV Cache 可比 GQA 小數倍，但效果反而更好（因為保留了完整的多頭表達力）。
+
+> DeepSeek-AI (2024). **DeepSeek-V2: A Strong, Economical, and Efficient Mixture-of-Experts Language Model.** [arxiv:2405.04434](https://arxiv.org/abs/2405.04434)
+
+### 7.4 Native Sparse Attention（NSA, 2025）
+
+標準 Attention 的 $O(n^2)$ 複雜度在長序列（64K+）時仍是瓶頸。DeepSeek 提出 **NSA**，一個可**原生訓練**的稀疏注意力機制：
+
+- **硬體對齊**：設計與 GPU 計算單元對齊，避免隨機稀疏帶來的 IO 開銷
+- **原生可訓練**：從預訓練開始就用稀疏 Attention，而非後期補丁
+- 在 64K 序列上的解碼、前向、反向傳播均顯著加速
+
+> Yuan, J. et al. (2025). **Native Sparse Attention: Hardware-Aligned and Natively Trainable Sparse Attention.** [arxiv:2502.11089](https://arxiv.org/abs/2502.11089)
+
 ---
 
 ## 8. Transformer 系列總覽
@@ -243,6 +275,8 @@ $$\mathcal{L} = \mathcal{L}_{\text{MLM}} + \mathcal{L}_{\text{NSP}}$$
 | ViT | 2021 | Encoder（視覺）| Patch-based 圖像 Transformer |
 | LLaMA | 2023 | Decoder | 開源，RoPE+SwiGLU+RMSNorm |
 | LLaMA3 | 2024 | Decoder | GQA，128K 上下文 |
+| DeepSeek-V3 | 2024 | Decoder (MoE) | MLA + DeepSeekMoE + Multi-Token Prediction |
+| DeepSeek-R1 | 2025 | Decoder (MoE) | 純 RL 推理，GRPO（見 [[KP-09 - RLHF 與現代強化學習#7. GRPO 與 DeepSeek-R1（2025 突破）]]）|
 
 ---
 

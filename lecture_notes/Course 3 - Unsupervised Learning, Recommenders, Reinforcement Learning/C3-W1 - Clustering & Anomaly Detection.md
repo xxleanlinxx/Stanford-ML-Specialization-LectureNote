@@ -12,6 +12,10 @@ topics:
   - Gaussian Distribution
   - Anomaly Detection Algorithm
   - Anomaly vs Supervised Learning
+aliases:
+  - "K-Means Clustering"
+  - "聚類與異常偵測"
+  - "Anomaly Detection"
 tags:
   - ml-specialization
   - course3
@@ -127,6 +131,10 @@ $$J(c^{(1)}, \ldots, c^{(m)}, \mu_1, \ldots, \mu_K) = \frac{1}{m} \sum_{i=1}^{m}
 - 兩步交替，$J$ 必定單調遞減（或不變）
 
 > K-Means 保證收斂，但不保證找到**全局最優解**，可能陷入局部最優。
+
+> [!info] 📖 延伸閱讀：從 K-Means 到現代表徵學習
+> K-Means 的「簇分配」思想被現代自監督學習延伸：**SwAV** 將聚類與對比學習結合，透過將增強後的圖像分配到同一簇來學習表徵，不需任何標籤。此外，**DINO** 透過自蒸餞（Self-Distillation）學到的特徵自然形成有意義的聚類。
+> 詳見 [[KP-08 - 自監督與對比學習]]。
 
 ---
 
@@ -308,7 +316,11 @@ graph LR
 
 ### 10.2 評估指標
 
-因為資料極度不平衡，使用 **Precision, Recall, F1 Score**（同 [[C2-W3 - Advice for Applying ML]]）。
+因為資料極度不平衡，使用 **Precision, Recall, F1 Score**（同 [[C2-W3 - Advice for Applying ML#5. Skewed Datasets（不平衡資料集）]]）。
+
+> [!info] 📖 延伸閱讀：異常偵測與損失函數設計
+> 異常偵測的核心是機率密度估計，這與損失函數設計密切相關。現代方法如 **Focal Loss** 專門處理類別不平衡問題，而 **InfoNCE** 損失可用於對比式異常偵測。
+> 詳見 [[KP-03 - 損失函數]]。
 
 ---
 

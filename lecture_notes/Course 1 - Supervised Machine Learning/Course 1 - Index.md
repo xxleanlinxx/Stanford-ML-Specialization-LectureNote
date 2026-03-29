@@ -60,7 +60,20 @@ $$J = \text{original cost} + \frac{\lambda}{2m}\sum_{j=1}^{n}w_j^2$$
 
 ---
 
-## 🔗 前往其他課程
+## � 延伸知識點（Post-2020 前沿補充）
+
+| 課程主題 | 延伸知識點 |
+|---------|-----------|
+| 梯度下降 / 學習率 | [[KP-01 - 超參數與學習率]] — Warmup、Cosine Annealing、WSD 排程 |
+| 梯度下降 → Adam | [[KP-02 - 現代優化器]] — AdamW、Lion、Sophia、Muon、SPAM |
+| 正則化 | [[KP-04 - 正則化技術]] — Dropout、LayerNorm、RMSNorm、DyT |
+| Logistic Loss | [[KP-03 - 損失函數]] — Label Smoothing、Focal Loss、InfoNCE |
+
+→ [[KP-Index - 知識點總索引]] — 完整知識點體系
+
+---
+
+## �🔗 前往其他課程
 
 - [[Course 2 - Index]] — Advanced Learning Algorithms
 - [[Course 3 - Index]] — Unsupervised Learning, Recommenders, Reinforcement Learning

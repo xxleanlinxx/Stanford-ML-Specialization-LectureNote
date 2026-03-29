@@ -71,7 +71,22 @@ $$H(p) = -p\log_2 p - (1-p)\log_2(1-p)$$
 
 ---
 
-## 🔗 前往其他課程
+## � 延伸知識點（Post-2020 前沿補充）
+
+| 課程主題 | 延伸知識點 |
+|---------|-----------|
+| 神經網路架構 | [[KP-06 - Attention 機制與 Transformer]] — Self-Attention、MHA、MLA、NSA |
+| 激活函數 (ReLU/Softmax) | [[KP-05 - 激活函數]] — GELU、SwiGLU、Mish |
+| Adam Optimizer | [[KP-02 - 現代優化器]] — AdamW、Lion、Sophia、Muon、SPAM |
+| Bias/Variance & 模型規模 | [[KP-07 - 縮放法則與湧現能力]] — Chinchilla、Test-time Scaling |
+| Decision Trees / XGBoost | [[KP-11 - 表格資料與現代決策樹]] — LightGBM、CatBoost、TabNet |
+| Transfer Learning | [[KP-08 - 自監督與對比學習]] — SimCLR、CLIP、MAE、SigLIP 2 |
+
+→ [[KP-Index - 知識點總索引]] — 完整知識點體系
+
+---
+
+## �🔗 前往其他課程
 
 - [[Course 1 - Index]] — Supervised Machine Learning
 - [[Course 3 - Index]] — Unsupervised Learning, Recommenders, Reinforcement Learning
